@@ -223,6 +223,7 @@ Each interaction is recorded using the following standardized audit schema:
   - `backend/cmd/api/main.go`: Wired domain calculator and history repository into HTTP server.
   - `specs/2026-09-24-phase-2-rest-api/plan.md`: Updated checklist and completed status.
   - `specs/roadmap.md`: Updated Phase 2 checklist.
+  - Opened GitHub Pull Request: [PR #3: Implementar microservicio REST, historial en ring buffer y concurrencia](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/3) targeting `main` from `feature/phase-2-rest-api`.
 - **Verification & Validation**:
   - Backend tests & race detection: `go test -v -race -cover ./...` -> 100% pass, 0 race conditions.
   - Statement coverage: `internal/history` 100.0%, `internal/api` 99.5%, `internal/calculator` 97.7%.

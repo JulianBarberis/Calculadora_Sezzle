@@ -94,10 +94,10 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
 - [x] **2.3 Concurrency & Race Verification**
   - [x] Write adversarial concurrency test launching 60 parallel goroutines writing and reading history simultaneously.
   - [x] Execute `go test -v -race -cover ./...` with zero race warnings (99.5% coverage on `internal/api`).
-- [ ] **2.4 Phase Completion & PR Delivery Workflow**
+- [x] **2.4 Phase Completion & PR Delivery Workflow**
   - [x] Run all test suites, race detection, and linters (`go test -v -race -cover ./...` $\ge 95\%$).
-  - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
-  - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
+  - [x] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
+  - [x] Record the PR link in the phase documentation. *(PR URL: [PR #3](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/3))*
 
 ---
 

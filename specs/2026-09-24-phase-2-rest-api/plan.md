@@ -103,18 +103,18 @@ Designated Skills: `/golang-patterns`, `/golang-testing`, `/fullstack-testing`, 
   - Verify coverage meets or exceeds 95% on `internal/history` (100.0%) and `internal/api` (99.5%).
   - Execute frontend regression tests: `cd frontend && pnpm test && pnpm type-check && pnpm lint`.
 
-- [ ] **Task 4.2: Branch Push & Pull Request Creation**
+- [x] **Task 4.2: Branch Push & Pull Request Creation**
   - Push branch to GitHub: `git push -u origin feature/phase-2-rest-api`.
   - Open a Pull Request targeting `main`.
 
-- [ ] **Task 4.3: Mandatory `/pr-description-generator` Invocation**
+- [x] **Task 4.3: Mandatory `/pr-description-generator` Invocation**
   - Invoke `/pr-description-generator` to draft the PR description in Spanish, structured by architectural layers:
     - **Controller** (`internal/api`)
     - **Repository** (`internal/history`)
     - **DTO / Model** (`internal/api/dto.go`, `internal/history/model.go`)
     - **Configuration** (`cmd/api/main.go`)
 
-- [ ] **Task 4.4: Documentation Traceability**
+- [x] **Task 4.4: Documentation Traceability**
   - Record PR link in `specs/roadmap.md` and this `plan.md`.
   - Add Prompt Audit Log entry in `specs/prompts.md`.
-  - **GitHub PR URL**: `TBD`
+  - **GitHub PR URL**: [PR #3](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/3)
