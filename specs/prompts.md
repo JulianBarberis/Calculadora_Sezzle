@@ -337,11 +337,33 @@ Each interaction is recorded using the following standardized audit schema:
   - GitHub Pull Request: [PR #6: Configurar y documentar reglas de gobernanza y proteccion de rama](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/6) targeting `main` from `chore/governance-branch-protection`.
 - **Verification & Validation**:
   - Ruleset API query: `gh api /repos/JulianBarberis/Calculadora_Sezzle/rulesets/23977054` returned active status and rules (`deletion`, `non_fast_forward`, `required_linear_history`, `pull_request`, `required_status_checks`).
-  - GitHub Actions CI checks on PR #6 reported 100% pass across all jobs.
+### Prompt #017 — 2026-09-25 00:54:00 -03:00
+- **Phase**: UI/UX Visual Refinements (Top Header & Navigation Bar)
+- **Intent**: Update `SPEC.md` and implement top header visual refinements: remove divider line beneath header for unified visual flow, and standardize Wifi/WifiOff status icon size to 16px (`w-4 h-4`) to optically match history icon.
+- **Actions & Artifacts Generated**:
+  - `SPEC.md`: Added Section 6.3 specifying borderless header presentation and 16px icon standardization.
+  - `frontend/src/components/Header.tsx`: Removed border-b divider line, adjusted padding, standardized Wifi/WifiOff icon size to `w-4 h-4`.
+  - `frontend/src/App.tsx`: Removed unused imports, added execution guards to calculation dispatchers.
+  - `frontend/src/__tests__/smoke.test.tsx`: Updated brand title assertions.
+- **Verification & Validation**:
+  - Frontend test suite: `pnpm test` -> 46/46 passed.
+  - TypeScript strict compilation: `pnpm type-check` -> 0 errors.
+  - Production build: `pnpm build` -> 0 errors.
 
-
-
-
-
-
-
+### Prompt #018 — 2026-09-25 01:05:00 -03:00
+- **Phase**: UI/UX Visual Refinements (Active Operator High-Contrast Visual Feedback)
+- **Intent**: Fix operator button active state when touching basic operations (`+`, `−`, `×`, `÷`, or `xʸ`). The button previously remained pink (`bg-[#ff2a85]` vs `glass-accent` gradient `#fe5ea3` / `#ad3083`), providing zero discernible visual feedback. Updated to Apple-style inverted high-contrast luminous state (`bg-white text-[#921c6b]` with specular halo and scale feedback).
+- **Skill Stack Activated**:
+  - `/react-performance-optimization`: Pure state machine rendering, zero-`useEffect` compliant, semantic `aria-pressed` attributes.
+  - `/impeccable`, `/design-taste-frontend`: Apple Liquid Glassmorphism inversion, GTA VI Neon Sunset palette contrast optimization (WCAG AAA $\ge 8:1$ contrast ratio).
+  - `/vitest`: Added integration tests verifying active operator selection, state transfer between operators, and reset behaviors.
+- **Actions & Artifacts Generated**:
+  - `SPEC.md`: Added Section 6.4 defining active operator selection feedback and semantic accessibility requirements.
+  - `frontend/src/components/Keypad.tsx`: Implemented `getBasicOperatorClass` and `getAdvancedOperatorClass` helpers providing high-contrast inverted active feedback (`bg-white text-[#921c6b] font-bold border-2 border-white shadow-[0_0_20px_rgba(255,255,255,0.7)] scale-[0.97]`) and `aria-pressed` semantic state.
+  - `frontend/src/__tests__/Calculator.test.tsx`: Added comprehensive test suite for operator button selection, state transfer, and clear behavior (expanded from 13 to 15 tests).
+- **Verification & Validation**:
+  - Frontend Vitest suite: `pnpm test` -> 48/48 tests passed (100% pass, zero `act(...)` warnings).
+  - TypeScript compilation: `pnpm type-check` -> 0 errors.
+  - Linter: `pnpm lint` -> 0 warnings, 0 errors.
+  - Bundle build: `pnpm build` -> 100% successful production build.
+  - Go backend regression: `cd backend && go test -v -race -cover ./...` -> 100% pass, zero race conditions, $\ge 97\%$ coverage.

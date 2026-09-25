@@ -253,3 +253,13 @@ All error responses (4xx and 5xx) must return a JSON response adhering to the ex
 - **Modals & Alerts**:
   - Toast notifications: `role="alert"`, `aria-live="assertive"`
   - History drawer: `role="dialog"`, `aria-modal="true"`, dismissible via `Escape` key and backdrop click.
+
+### 6.3 Top Header & Navigation Bar Specification
+- **Unified Header Presentation**: Clean, borderless presentation without a bottom divider line beneath the title bar, seamlessly integrating the brand title with the calculation screen.
+- **Icon Sizing Standardization**: The server connectivity status icon (`Wifi` / `WifiOff`) size is standardized to exactly 16px (`w-4 h-4`) to optically match the history action icon (`History`), ensuring harmonious visual weight across status indicators and action controls.
+
+### 6.4 Active Operator Selection Feedback
+- **Inverted High-Contrast Surface**: When an arithmetic operator (`+`, `−`, `×`, `÷`, or `xʸ`) is selected, the active button transitions from its default accent glass state to a high-contrast inverted active state: luminous pure white background (`bg-white`), deep high-contrast Raspberry Plum glyph (`text-[#921c6b]`, $\ge 8:1$ contrast ratio meeting WCAG AAA), specular white halo glow (`shadow-[0_0_20px_rgba(255,255,255,0.7)]`), and tactile scale feedback (`scale-[0.97]`).
+- **Semantic State**: Active operator buttons must expose `aria-pressed="true"` to assistive technologies, reverting to `aria-pressed="false"` when superseded, cleared, or upon calculation.
+
+

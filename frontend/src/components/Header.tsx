@@ -1,4 +1,4 @@
-import { Calculator, History, Wifi, WifiOff } from 'lucide-react';
+import { History, Wifi, WifiOff } from 'lucide-react';
 
 interface HeaderProps {
   isOnline: boolean;
@@ -8,16 +8,12 @@ interface HeaderProps {
 
 export function Header({ isOnline, historyCount, onOpenHistory }: HeaderProps) {
   return (
-    <header className="flex items-center justify-between pb-5 border-b border-white/10">
+    <header className="flex items-center justify-between pb-2">
       <div className="flex items-center gap-2.5">
-        <div className="p-2 rounded-xl bg-gradient-to-br from-[#ff2a85] to-[#5644c0] shadow-md shadow-[#ff2a85]/30">
-          <Calculator className="w-5 h-5 text-white" aria-hidden="true" />
-        </div>
         <div>
-          <h1 className="text-base md:text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
-            Sezzle <span className="text-[#ff2a85] font-semibold text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/10">FinTech</span>
+          <h1 className="text-lg md:text-2xl font-bold tracking-tight text-white flex items-center gap-1.5">
+            Sezzle Calculator 
           </h1>
-          <p className="text-[11px] text-white/60">Motor de Precisión Arbitraria</p>
         </div>
       </div>
 
@@ -33,13 +29,11 @@ export function Header({ isOnline, historyCount, onOpenHistory }: HeaderProps) {
         >
           {isOnline ? (
             <>
-              <Wifi className="w-3 h-3" aria-hidden="true" />
-              <span className="hidden sm:inline">Online</span>
+              <Wifi className="w-4 h-4" aria-hidden="true" />
             </>
           ) : (
             <>
-              <WifiOff className="w-3 h-3" aria-hidden="true" />
-              <span className="hidden sm:inline">Offline</span>
+              <WifiOff className="w-4 h-4" aria-hidden="true" />
             </>
           )}
         </div>

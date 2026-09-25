@@ -12,8 +12,7 @@ describe('Phase 0 Frontend Smoke Suite', () => {
     )
 
     // Heading and branding verification
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/sezzle/i)
-    expect(screen.getByText(/fintech/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/sezzle calculator/i)
 
     // Semantic output verification
     const output = screen.getByTestId('calculator-display')
@@ -31,7 +30,7 @@ describe('Phase 0 Frontend Smoke Suite', () => {
           <App />
         </StrictMode>
       )
-      expect(screen.getByText(/precisión arbitraria/i)).toBeInTheDocument()
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/sezzle calculator/i)
       unmount()
     }
   })

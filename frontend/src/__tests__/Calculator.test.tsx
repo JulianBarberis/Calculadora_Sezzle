@@ -384,4 +384,71 @@ describe('Calculator Component Integration', () => {
     }
     expect(display.className).toContain('text-xl');
   });
+
+  describe('Operator Button Visual Feedback', () => {
+    it('activates high-contrast luminous state on basic operator click and transfers to subsequent operator', () => {
+      render(<App />);
+
+      const plusBtn = screen.getByRole('button', { name: 'Sumar' });
+      const minusBtn = screen.getByRole('button', { name: 'Restar' });
+      const multiplyBtn = screen.getByRole('button', { name: 'Multiplicar' });
+      const divideBtn = screen.getByRole('button', { name: 'Dividir' });
+
+      // Initially inactive
+      expect(plusBtn).toHaveAttribute('aria-pressed', 'false');
+      expect(plusBtn.className).toContain('glass-accent');
+      expect(plusBtn.className).not.toContain('bg-white');
+
+      // Enter a number then touch '+'
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 5' }));
+      fireEvent.click(plusBtn);
+
+      // '+' should now be active with inverted luminous white surface and raspberry text
+      expect(plusBtn).toHaveAttribute('aria-pressed', 'true');
+      expect(plusBtn.className).toContain('bg-white');
+      expect(plusBtn.className).toContain('text-[#921c6b]');
+      expect(minusBtn).toHaveAttribute('aria-pressed', 'false');
+
+      // Now touch '-' -> '+' deactivates, '-' activates
+      fireEvent.click(minusBtn);
+      expect(plusBtn).toHaveAttribute('aria-pressed', 'false');
+      expect(plusBtn.className).toContain('glass-accent');
+      expect(minusBtn).toHaveAttribute('aria-pressed', 'true');
+      expect(minusBtn.className).toContain('bg-white');
+      expect(minusBtn.className).toContain('text-[#921c6b]');
+
+      // Now touch '×' -> '-' deactivates, '×' activates
+      fireEvent.click(multiplyBtn);
+      expect(minusBtn).toHaveAttribute('aria-pressed', 'false');
+      expect(multiplyBtn).toHaveAttribute('aria-pressed', 'true');
+      expect(multiplyBtn.className).toContain('bg-white');
+      expect(multiplyBtn.className).toContain('text-[#921c6b]');
+
+      // Now touch '÷' -> '×' deactivates, '÷' activates
+      fireEvent.click(divideBtn);
+      expect(multiplyBtn).toHaveAttribute('aria-pressed', 'false');
+      expect(divideBtn).toHaveAttribute('aria-pressed', 'true');
+      expect(divideBtn.className).toContain('bg-white');
+      expect(divideBtn.className).toContain('text-[#921c6b]');
+    });
+
+    it('activates high-contrast state on power operator and resets on clear', () => {
+      render(<App />);
+
+      const powerBtn = screen.getByRole('button', { name: 'Potencia' });
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 2' }));
+      fireEvent.click(powerBtn);
+
+      expect(powerBtn).toHaveAttribute('aria-pressed', 'true');
+      expect(powerBtn.className).toContain('bg-white');
+      expect(powerBtn.className).toContain('text-[#921c6b]');
+
+      // Clear all resets active operator
+      fireEvent.click(screen.getByRole('button', { name: 'Borrar entrada' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Borrar todo' }));
+      expect(powerBtn).toHaveAttribute('aria-pressed', 'false');
+      expect(powerBtn.className).not.toContain('bg-white');
+    });
+  });
 });
+
