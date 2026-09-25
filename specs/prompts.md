@@ -373,3 +373,25 @@ Each interaction is recorded using the following standardized audit schema:
   - TypeScript compilation: `pnpm type-check` -> 0 errors.
   - Linter: `pnpm lint` -> 0 warnings, 0 errors.
   - Bundle build: `pnpm build` -> production build succeeded.
+
+### Prompt #020 — 2026-09-25 01:53:00 -03:00
+- **Phase**: UI/UX Button Ergonomics & Return to Unpressed State
+- **Intent**: Eliminate the persistent glowing inverted state on arithmetic operator buttons (`+`, `−`, `×`, `÷`, `xʸ`). Operator buttons now operate as standard tactile push buttons with instant `:active` feedback (`scale-[0.97]`) that immediately return to their unpressed resting glass state (`glass-accent` or `glass-button`) upon release, while operation context is presented cleanly via the dedicated secondary expression line in `Display.tsx`.
+- **Skill Stack Activated**:
+  - `/design-taste-frontend`: Anti-slop UI standards, removal of artificial button glow, cohesive tactile push physics (`active:scale-[0.97]`).
+  - `/react-performance-optimization`: Clean stateless button styling, zero-`useEffect` compliant.
+  - `/vitest`: Updated integration tests verifying operator buttons return to unpressed state without sticky white highlight.
+  - `/pr-description-generator`: Generated comprehensive, architecturally structured PR description in Spanish.
+- **Actions & Artifacts Generated**:
+  - `SPEC.md`: Updated Section 6.4 to Push Button Interaction & Tactile Feedback, documenting immediate return to resting state and display-driven operation feedback.
+  - `frontend/src/components/Keypad.tsx`: Removed `getBasicOperatorClass`/`getAdvancedOperatorClass` sticky states and `aria-pressed` toggle attributes. Standardized resting classes with `:active:scale-[0.97]`.
+  - `frontend/src/components/Header.tsx`: Fixed unused `isOnline` in `HeaderProps`.
+  - `frontend/src/__tests__/Calculator.test.tsx`: Updated test suite to verify operator buttons maintain resting unpressed state without sticky white highlight.
+  - GitHub Pull Request: [PR #7: Restaurar estado pulsador de operadores y formateo cientifico](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/7) targeting `main` from `fix/UI-UX-fixes-and-improvements`.
+- **Verification & Validation**:
+  - Frontend Vitest suite: `pnpm test` -> 65/65 tests passed (100% pass, 0 `act(...)` warnings).
+  - TypeScript compilation: `pnpm type-check` -> 0 errors.
+  - Linter: `pnpm lint` -> 0 warnings, 0 errors.
+  - Bundle build: `pnpm build` -> production build succeeded.
+  - Go backend regression: `cd backend && go test -v -race -cover ./...` -> 100% pass, zero race conditions, $\ge 97.7\%$ coverage.
+
