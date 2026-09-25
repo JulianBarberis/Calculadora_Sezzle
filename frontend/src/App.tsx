@@ -1,8 +1,185 @@
-import { Calculator, ShieldCheck, Sparkles } from 'lucide-react'
+import { useReducer, useState } from 'react';
+import { Sparkles } from 'lucide-react';
+import { calculatorReducer, initialCalculatorState } from './state/calculatorReducer';
+import { useHistory, historyStore } from './state/historyStore';
+import { useNetworkStatus } from './state/networkStore';
+import { calculateAPI, CalculatorApiError } from './services/apiClient';
+import { Header } from './components/Header';
+import { Display } from './components/Display';
+import { Keypad } from './components/Keypad';
+import { HistoryDrawer } from './components/HistoryDrawer';
+import { Toast } from './components/Toast';
+import type { OperationType } from './types/calculator';
 
 export function App() {
+  const [state, dispatch] = useReducer(calculatorReducer, initialCalculatorState);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
+
+  const historyItems = useHistory();
+  const isOnline = useNetworkStatus();
+
+  // Handlers for user interactions
+  const handleDigit = (digit: string) => {
+    dispatch({ type: 'INPUT_DIGIT', digit });
+  };
+
+  const handleDecimal = () => {
+    dispatch({ type: 'INPUT_DECIMAL' });
+  };
+
+  const handleClear = () => {
+    dispatch({ type: 'CLEAR' });
+  };
+
+  const handleToggleSign = () => {
+    dispatch({ type: 'TOGGLE_SIGN' });
+  };
+
+  const handleBackspace = () => {
+    dispatch({ type: 'BACKSPACE' });
+  };
+
+  const handleRecall = (value: string) => {
+    dispatch({ type: 'RECALL_VALUE', value });
+  };
+
+  const handleDismissToast = () => {
+    dispatch({ type: 'SET_ERROR', error: '' });
+  };
+
+  const handleOpenHistory = () => {
+    setIsHistoryOpen(true);
+    void historyStore.syncWithBackend();
+  };
+
+  const handleOperation = async (op: OperationType) => {
+    // Immediate execution for unary square root
+    if (op === 'sqrt') {
+      setIsCalculating(true);
+      try {
+        const res = await calculateAPI('sqrt', state.displayValue, null);
+        dispatch({ type: 'SET_RESULT', result: res.result, expression: res.expression });
+        historyStore.addCalculation(res);
+      } catch (err) {
+        const message = err instanceof CalculatorApiError ? err.message : 'Error al calcular raíz cuadrada';
+        dispatch({ type: 'SET_ERROR', error: message });
+      } finally {
+        setIsCalculating(false);
+      }
+      return;
+    }
+
+    // Binary percentage calculation if an operation is already pending
+    if (op === 'percentage' && state.previousOperand !== null && state.pendingOperation !== null) {
+      setIsCalculating(true);
+      try {
+        const res = await calculateAPI('percentage', state.previousOperand, state.displayValue);
+        dispatch({ type: 'SET_RESULT', result: res.result, expression: res.expression });
+        historyStore.addCalculation(res);
+      } catch (err) {
+        const message = err instanceof CalculatorApiError ? err.message : 'Error en cálculo de porcentaje';
+        dispatch({ type: 'SET_ERROR', error: message });
+      } finally {
+        setIsCalculating(false);
+      }
+      return;
+    }
+
+    // Unary percentage if no previous operand exists
+    if (op === 'percentage' && state.previousOperand === null) {
+      setIsCalculating(true);
+      try {
+        const res = await calculateAPI('percentage', state.displayValue, null);
+        dispatch({ type: 'SET_RESULT', result: res.result, expression: res.expression });
+        historyStore.addCalculation(res);
+      } catch (err) {
+        const message = err instanceof CalculatorApiError ? err.message : 'Error en cálculo de porcentaje';
+        dispatch({ type: 'SET_ERROR', error: message });
+      } finally {
+        setIsCalculating(false);
+      }
+      return;
+    }
+
+    // Standard binary operator setup
+    dispatch({ type: 'SET_OPERATION', operation: op });
+  };
+
+  const handleCalculate = async () => {
+    if (!state.pendingOperation || state.previousOperand === null) {
+      return;
+    }
+
+    setIsCalculating(true);
+    try {
+      const res = await calculateAPI(
+        state.pendingOperation,
+        state.previousOperand,
+        state.displayValue
+      );
+      dispatch({ type: 'SET_RESULT', result: res.result, expression: res.expression });
+      historyStore.addCalculation(res);
+    } catch (err) {
+      const message = err instanceof CalculatorApiError ? err.message : 'Error al procesar el cálculo';
+      dispatch({ type: 'SET_ERROR', error: message });
+    } finally {
+      setIsCalculating(false);
+    }
+  };
+
+  // Keyboard shortcut dispatcher attached directly to the main interactive container
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key >= '0' && e.key <= '9') {
+      e.preventDefault();
+      handleDigit(e.key);
+    } else if (e.key === '.') {
+      e.preventDefault();
+      handleDecimal();
+    } else if (e.key === '+') {
+      e.preventDefault();
+      void handleOperation('add');
+    } else if (e.key === '-') {
+      e.preventDefault();
+      void handleOperation('subtract');
+    } else if (e.key === '*') {
+      e.preventDefault();
+      void handleOperation('multiply');
+    } else if (e.key === '/') {
+      e.preventDefault();
+      void handleOperation('divide');
+    } else if (e.key === '^') {
+      e.preventDefault();
+      void handleOperation('power');
+    } else if (e.key === '%') {
+      e.preventDefault();
+      void handleOperation('percentage');
+    } else if (e.key === 'Enter' || e.key === '=') {
+      e.preventDefault();
+      void handleCalculate();
+    } else if (e.key === 'Backspace') {
+      e.preventDefault();
+      handleBackspace();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      if (isHistoryOpen) {
+        setIsHistoryOpen(false);
+      } else {
+        handleClear();
+      }
+    } else if (e.key.toLowerCase() === 'c') {
+      e.preventDefault();
+      handleClear();
+    }
+  };
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-[#fe5ea3] selection:text-white">
+    <main
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      className="min-h-screen flex flex-col items-center justify-center p-4 selection:bg-[#ff2a85] selection:text-white outline-none"
+      aria-label="Calculadora Sezzle FinTech"
+    >
       {/* Background Ambience */}
       <div 
         aria-hidden="true"
@@ -10,7 +187,7 @@ export function App() {
       />
 
       {/* Main Glass Shell */}
-      <div className="w-full max-w-md rounded-3xl p-6 glass-panel relative overflow-hidden">
+      <div className="w-full max-w-sm rounded-3xl p-6 glass-panel relative overflow-hidden shadow-2xl transition-all">
         {/* Subtle Specular Top Highlight */}
         <div 
           aria-hidden="true" 
@@ -18,68 +195,58 @@ export function App() {
         />
 
         {/* Header */}
-        <header className="flex items-center justify-between pb-6 border-b border-white/10">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-gradient-to-br from-[#fe5ea3] to-[#ad3083] shadow-md shadow-[#ad3083]/30">
-              <Calculator className="w-5 h-5 text-white" aria-hidden="true" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
-                Sezzle <span className="text-[#fe5ea3] font-normal text-xs uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/10">FinTech</span>
-              </h1>
-              <p className="text-xs text-white/70">Arbitrary Precision Engine</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-emerald-400 border border-emerald-500/20">
-            <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Ready</span>
-          </div>
-        </header>
+        <Header 
+          isOnline={isOnline} 
+          historyCount={historyItems.length} 
+          onOpenHistory={handleOpenHistory} 
+        />
 
-        {/* Display Preview */}
-        <section aria-label="Calculation Display" className="my-6">
-          <div className="rounded-2xl p-4 bg-black/30 border border-white/10 text-right">
-            <div className="text-xs text-white/50 h-5 font-mono">0.1 + 0.2</div>
-            <output className="text-4xl font-mono font-bold tracking-tight text-white block tabular-nums">
-              0.3
-            </output>
-          </div>
-        </section>
+        {/* Display */}
+        <Display 
+          value={state.displayValue} 
+          expression={state.activeExpression} 
+        />
 
-        {/* Keypad Placeholder */}
-        <section aria-label="Calculator Controls" className="grid grid-cols-4 gap-2.5">
-          {['C', '±', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '√', '='].map((key) => {
-            const isAction = ['÷', '×', '-', '+', '='].includes(key)
-            const isSpecial = ['C', '±', '%'].includes(key)
-            return (
-              <button
-                key={key}
-                type="button"
-                className={`h-12 rounded-xl font-semibold text-base flex items-center justify-center transition-all ${
-                  isAction 
-                    ? 'glass-accent text-white font-bold' 
-                    : isSpecial 
-                      ? 'bg-white/15 text-white hover:bg-white/25 border border-white/20' 
-                      : 'glass-button text-white'
-                }`}
-              >
-                {key}
-              </button>
-            )
-          })}
-        </section>
+        {/* Keypad */}
+        <Keypad
+          onDigit={handleDigit}
+          onDecimal={handleDecimal}
+          onOperation={handleOperation}
+          onCalculate={handleCalculate}
+          onClear={handleClear}
+          onToggleSign={handleToggleSign}
+          onBackspace={handleBackspace}
+          isClearAll={state.displayValue === '0'}
+          pendingOperation={state.pendingOperation}
+        />
 
         {/* Footer info */}
-        <footer className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-white/60">
+        <footer className="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between text-[11px] text-white/50">
           <span className="flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-[#fe5ea3]" aria-hidden="true" />
-            Phase 0 Scaffolding
+            <Sparkles className="w-3 h-3 text-[#ff2a85]" aria-hidden="true" />
+            Precisión 34 Decimales
           </span>
-          <span>Zero-`useEffect` Architecture</span>
+          <span className="text-white/40">
+            {isCalculating ? 'Calculando...' : 'Zero-useEffect'}
+          </span>
         </footer>
       </div>
+
+      {/* History Drawer Modal */}
+      <HistoryDrawer
+        isOpen={isHistoryOpen}
+        onClose={() => setIsHistoryOpen(false)}
+        items={historyItems}
+        onRecall={handleRecall}
+      />
+
+      {/* Floating Error Toast */}
+      <Toast 
+        message={state.error} 
+        onDismiss={handleDismissToast} 
+      />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

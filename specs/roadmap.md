@@ -111,32 +111,32 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
 > - `/fullstack-testing`
 > - `/pr-description-generator`
 
-- [ ] **3.1 Styling & Theme System (`/design-taste-frontend`, `/impeccable`, `/web-design-guidelines`)**
-  - [ ] Configure Tailwind CSS v4 with GTA VI Neon Sunset palette tokens.
-  - [ ] Implement Apple Liquid Glassmorphism utility classes (`backdrop-blur(16-24px)`, specular borders, gradient reflections).
-  - [ ] Verify WCAG AAA contrast ratio ($\ge 7:1$) on text and interactive elements.
-- [ ] **3.2 Deterministic State Machine (`/react-performance-optimization`)**
-  - [ ] Define typed actions (`INPUT_DIGIT`, `INPUT_DECIMAL`, `SET_OPERATION`, `CALCULATE`, `CLEAR`, `BACKSPACE`, `TOGGLE_SIGN`, `SET_ERROR`).
-  - [ ] Implement pure reducer resilient to `React.StrictMode` double invocation.
-  - [ ] Support dynamic string formatting and up to 16 visible digits in the `<output>` display without layout overflow.
-- [ ] **3.3 Zero-`useEffect` Architecture (`/react-performance-optimization`)**
-  - [ ] Implement `useSyncExternalStore` store for history tape updates.
-  - [ ] Implement `useSyncExternalStore` store for network/online status.
-  - [ ] Bind keyboard events directly via event listeners without `useEffect`.
-  - [ ] Trigger calculation API mutations directly from click/enter handlers.
-- [ ] **3.4 Component Suite (`/impeccable`)**
-  - [ ] `<Display />`: Semantic `<output>` with tabular numbers and auto-scaling font size.
-  - [ ] `<Keypad />`: Ergonomic grid layout with accessible button roles and keyboard visual feedback.
-  - [ ] `<HistoryTape />`: Drawer/dialog modal (`role="dialog"`, `aria-modal="true"`, `Escape` to close).
-  - [ ] `<Toast />`: Floating error alert (`role="alert"`).
-- [ ] **3.5 Vitest & Fullstack Testing Suite (`/vitest`, `/fullstack-testing`)**
-  - [ ] Achieve $\ge 95\%$ test coverage across components and reducer.
-  - [ ] Verify zero `act(...)` warnings in `stderr`.
-  - [ ] Verify 100-cycle `React.StrictMode` endurance.
-- [ ] **3.6 Phase Completion & PR Delivery Workflow**
-  - [ ] Run all test suites, race detection, and linters (`pnpm test`, `pnpm type-check`, `pnpm lint`, `pnpm build`).
-  - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
-  - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
+- [x] **3.1 Styling & Theme System (`/design-taste-frontend`, `/impeccable`, `/web-design-guidelines`)**
+  - [x] Configure Tailwind CSS v4 with GTA VI Neon Sunset palette tokens.
+  - [x] Implement Apple Liquid Glassmorphism utility classes (`backdrop-blur(16-24px)`, specular borders, gradient reflections).
+  - [x] Verify WCAG AAA contrast ratio ($\ge 7:1$) on text and interactive elements.
+- [x] **3.2 Deterministic State Machine (`/react-performance-optimization`)**
+  - [x] Define typed actions (`INPUT_DIGIT`, `INPUT_DECIMAL`, `SET_OPERATION`, `CALCULATE`, `CLEAR`, `BACKSPACE`, `TOGGLE_SIGN`, `SET_ERROR`).
+  - [x] Implement pure reducer resilient to `React.StrictMode` double invocation.
+  - [x] Support dynamic string formatting and up to 16 visible digits in the `<output>` display without layout overflow.
+- [x] **3.3 Zero-`useEffect` Architecture (`/react-performance-optimization`)**
+  - [x] Implement `useSyncExternalStore` store for history tape updates.
+  - [x] Implement `useSyncExternalStore` store for network/online status.
+  - [x] Bind keyboard events directly via event listeners without `useEffect`.
+  - [x] Trigger calculation API mutations directly from click/enter handlers.
+- [x] **3.4 Component Suite (`/impeccable`)**
+  - [x] `<Display />`: Semantic `<output>` with tabular numbers and auto-scaling font size.
+  - [x] `<Keypad />`: Ergonomic grid layout with accessible button roles and keyboard visual feedback.
+  - [x] `<HistoryTape />`: Drawer/dialog modal (`role="dialog"`, `aria-modal="true"`, `Escape` to close).
+  - [x] `<Toast />`: Floating error alert (`role="alert"`).
+- [x] **3.5 Vitest & Fullstack Testing Suite (`/vitest`, `/fullstack-testing`)**
+  - [x] Achieve $\ge 95\%$ test coverage across state machine, stores, and components.
+  - [x] Verify zero `act(...)` warnings in `stderr`.
+  - [x] Verify 100-cycle `React.StrictMode` endurance.
+- [x] **3.6 Phase Completion & PR Delivery Workflow**
+  - [x] Run all test suites, race detection, and linters (`pnpm test`, `pnpm type-check`, `pnpm lint`, `pnpm build`).
+  - [x] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
+  - [x] Record the PR link in the phase documentation. *(PR URL: [PR #4](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/4))*
 
 ---
 

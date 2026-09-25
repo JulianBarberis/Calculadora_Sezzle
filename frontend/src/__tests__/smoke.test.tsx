@@ -16,12 +16,12 @@ describe('Phase 0 Frontend Smoke Suite', () => {
     expect(screen.getByText(/fintech/i)).toBeInTheDocument()
 
     // Semantic output verification
-    const output = screen.getByRole('status', { hidden: true }) || screen.getByText('0.3')
+    const output = screen.getByTestId('calculator-display')
     expect(output).toBeInTheDocument()
 
     // Keypad button verification
-    expect(screen.getByRole('button', { name: '=' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'C' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Calcular resultado' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Borrar todo' })).toBeInTheDocument()
   })
 
   it('preserves deterministic mounting across 10 StrictMode double invocations', () => {
@@ -31,7 +31,7 @@ describe('Phase 0 Frontend Smoke Suite', () => {
           <App />
         </StrictMode>
       )
-      expect(screen.getByText(/arbitrary precision engine/i)).toBeInTheDocument()
+      expect(screen.getByText(/precisión arbitraria/i)).toBeInTheDocument()
       unmount()
     }
   })
