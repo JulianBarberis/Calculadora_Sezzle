@@ -257,6 +257,8 @@ All error responses (4xx and 5xx) must return a JSON response adhering to the ex
 ### 6.3 Top Header & Navigation Bar Specification
 - **Unified Header Presentation**: Clean, borderless presentation without a bottom divider line beneath the title bar, seamlessly integrating the brand title with the calculation screen.
 - **Icon Sizing Standardization**: The server connectivity status icon (`Wifi` / `WifiOff`) size is standardized to exactly 16px (`w-4 h-4`) to optically match the history action icon (`History`), ensuring harmonious visual weight across status indicators and action controls.
+- **Container Geometry & Sizing Harmonization**: Both the network connectivity status indicator and the history action button share identical outer container dimensions (`w-9 h-9`), corner curvature (`rounded-xl`), border styling, and centered flex alignment, eliminating shape and size asymmetry between status indicators and interactive buttons.
+
 
 ### 6.4 Active Operator Selection Feedback
 - **Inverted High-Contrast Surface**: When an arithmetic operator (`+`, `−`, `×`, `÷`, or `xʸ`) is selected, the active button transitions from its default accent glass state to a high-contrast inverted active state: luminous pure white background (`bg-white`), deep high-contrast Raspberry Plum glyph (`text-[#921c6b]`, $\ge 8:1$ contrast ratio meeting WCAG AAA), specular white halo glow (`shadow-[0_0_20px_rgba(255,255,255,0.7)]`), and tactile scale feedback (`scale-[0.97]`).

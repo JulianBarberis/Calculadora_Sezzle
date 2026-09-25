@@ -357,13 +357,19 @@ Each interaction is recorded using the following standardized audit schema:
   - `/react-performance-optimization`: Pure state machine rendering, zero-`useEffect` compliant, semantic `aria-pressed` attributes.
   - `/impeccable`, `/design-taste-frontend`: Apple Liquid Glassmorphism inversion, GTA VI Neon Sunset palette contrast optimization (WCAG AAA $\ge 8:1$ contrast ratio).
   - `/vitest`: Added integration tests verifying active operator selection, state transfer between operators, and reset behaviors.
+### Prompt #019 — 2026-09-25 01:12:00 -03:00
+- **Phase**: UI/UX Visual Refinements (Header Indicator & Action Button Geometry Harmonization)
+- **Intent**: Standardize the outer dimensions and geometry of the top header's Network Status badge and History button so both share the exact same size (`w-9 h-9` / 36×36px), border radius (`rounded-xl`), and centered flex layout.
+- **Skill Stack Activated**:
+  - `/impeccable`, `/design-taste-frontend`: Geometric symmetry, Apple Liquid Glassmorphism component harmonization.
+  - `/vitest`: Added test validating identical dimensions (`w-9 h-9`) and corner radius (`rounded-xl`).
 - **Actions & Artifacts Generated**:
-  - `SPEC.md`: Added Section 6.4 defining active operator selection feedback and semantic accessibility requirements.
-  - `frontend/src/components/Keypad.tsx`: Implemented `getBasicOperatorClass` and `getAdvancedOperatorClass` helpers providing high-contrast inverted active feedback (`bg-white text-[#921c6b] font-bold border-2 border-white shadow-[0_0_20px_rgba(255,255,255,0.7)] scale-[0.97]`) and `aria-pressed` semantic state.
-  - `frontend/src/__tests__/Calculator.test.tsx`: Added comprehensive test suite for operator button selection, state transfer, and clear behavior (expanded from 13 to 15 tests).
+  - `SPEC.md`: Updated Section 6.3 specifying container geometry & sizing harmonization (`w-9 h-9`, `rounded-xl`).
+  - `frontend/src/components/Header.tsx`: Replaced pill-shaped `px-2.5 py-1 rounded-full` network badge with `w-9 h-9 rounded-xl flex items-center justify-center border transition-all`, harmonizing it with the `w-9 h-9 rounded-xl` history button.
+  - `frontend/src/components/Keypad.tsx`: Restored canonical keypad grid without duplication while maintaining high-contrast active operator feedback.
+  - `frontend/src/__tests__/Calculator.test.tsx`: Added test verifying identical dimensions for both header controls (expanded to 16 tests, 49 total tests).
 - **Verification & Validation**:
-  - Frontend Vitest suite: `pnpm test` -> 48/48 tests passed (100% pass, zero `act(...)` warnings).
+  - Vitest suite: `pnpm test` -> 49/49 tests passed (100% pass, 0 `act(...)` warnings).
   - TypeScript compilation: `pnpm type-check` -> 0 errors.
   - Linter: `pnpm lint` -> 0 warnings, 0 errors.
-  - Bundle build: `pnpm build` -> 100% successful production build.
-  - Go backend regression: `cd backend && go test -v -race -cover ./...` -> 100% pass, zero race conditions, $\ge 97\%$ coverage.
+  - Bundle build: `pnpm build` -> production build succeeded.

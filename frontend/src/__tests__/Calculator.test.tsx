@@ -449,6 +449,22 @@ describe('Calculator Component Integration', () => {
       expect(powerBtn).toHaveAttribute('aria-pressed', 'false');
       expect(powerBtn.className).not.toContain('bg-white');
     });
+
+    it('standardizes header network status indicator and history button to matching dimensions', () => {
+      render(<App />);
+
+      const networkIndicator = screen.getByTitle('Servicio en línea');
+      const historyBtn = screen.getByTitle('Ver historial de cálculos');
+
+      expect(networkIndicator.className).toContain('w-9');
+      expect(networkIndicator.className).toContain('h-9');
+      expect(networkIndicator.className).toContain('rounded-xl');
+
+      expect(historyBtn.className).toContain('w-9');
+      expect(historyBtn.className).toContain('h-9');
+      expect(historyBtn.className).toContain('rounded-xl');
+    });
   });
 });
+
 
