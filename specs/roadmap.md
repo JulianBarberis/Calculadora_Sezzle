@@ -79,25 +79,25 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
 > - `/fullstack-testing`
 > - `/pr-description-generator`
 
-- [ ] **2.1 In-Memory History Ring Buffer (`backend/internal/history/`)**
-  - [ ] Implement circular ring buffer with fixed capacity 20.
-  - [ ] Synchronize reads and writes using `sync.RWMutex`.
-  - [ ] Expose `Push(entry Calculation)` and `GetAll() []Calculation` in reverse chronological order.
-  - [ ] Unit test ring buffer capacity capping and FIFO eviction.
-- [ ] **2.2 REST API Server & HTTP Handlers (`backend/internal/api/`)**
-  - [ ] Configure `http.Server` with production timeouts (`ReadHeaderTimeout: 5s`, `ReadTimeout: 15s`, etc.) via standard `net/http`.
-  - [ ] Implement CORS middleware and JSON panic recovery middleware.
-  - [ ] Implement `GET /api/v1/health`.
-  - [ ] Implement `POST /api/v1/calculate` with atomic sequential ID generation (`atomic.Uint64`).
-  - [ ] Implement `GET /api/v1/history`.
-  - [ ] Wire strict error catalog (`MALFORMED_JSON`, `INVALID_OPERAND`, `DIVISION_BY_ZERO`, etc.).
-- [ ] **2.3 Concurrency & Race Verification**
-  - [ ] Write adversarial concurrency test launching 60 parallel goroutines writing and reading history simultaneously.
-  - [ ] Execute `go test -v -race -cover ./...` with zero race warnings.
-- [ ] **2.4 Phase Completion & PR Delivery Workflow**
-  - [ ] Run all test suites, race detection, and linters (`go test -v -race -cover ./...` $\ge 95\%$).
-  - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
-  - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
+- [x] **2.1 In-Memory History Ring Buffer (`backend/internal/history/`)**
+  - [x] Implement circular ring buffer with fixed capacity 20.
+  - [x] Synchronize reads and writes using `sync.RWMutex`.
+  - [x] Expose `Push(entry Calculation)` and `GetAll() []Calculation` in reverse chronological order.
+  - [x] Unit test ring buffer capacity capping and FIFO eviction (100.0% coverage).
+- [x] **2.2 REST API Server & HTTP Handlers (`backend/internal/api/`)**
+  - [x] Configure `http.Server` with production timeouts (`ReadHeaderTimeout: 5s`, `ReadTimeout: 15s`, etc.) via standard `net/http`.
+  - [x] Implement CORS middleware and JSON panic recovery middleware.
+  - [x] Implement `GET /api/v1/health`.
+  - [x] Implement `POST /api/v1/calculate` with atomic sequential ID generation (`atomic.Uint64`).
+  - [x] Implement `GET /api/v1/history`.
+  - [x] Wire strict error catalog (`MALFORMED_JSON`, `INVALID_OPERAND`, `DIVISION_BY_ZERO`, etc.).
+- [x] **2.3 Concurrency & Race Verification**
+  - [x] Write adversarial concurrency test launching 60 parallel goroutines writing and reading history simultaneously.
+  - [x] Execute `go test -v -race -cover ./...` with zero race warnings (99.5% coverage on `internal/api`).
+- [x] **2.4 Phase Completion & PR Delivery Workflow**
+  - [x] Run all test suites, race detection, and linters (`go test -v -race -cover ./...` $\ge 95\%$).
+  - [x] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
+  - [x] Record the PR link in the phase documentation. *(PR URL: [PR #3](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/3))*
 
 ---
 

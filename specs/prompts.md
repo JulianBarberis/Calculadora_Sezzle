@@ -186,6 +186,50 @@ Each interaction is recorded using the following standardized audit schema:
   - Go static analysis: `go vet ./...` -> clean, 0 warnings.
   - Frontend smoke & lint check: `pnpm test && pnpm type-check && pnpm lint` -> 100% pass, 0 warnings.
 
+### Prompt #010 — 2026-09-24 23:34:00 -03:00
+- **Phase**: Phase 2 (Go REST API Microservice, History & Concurrency Tests)
+- **Intent**: Check out next phase branch `feature/phase-2-rest-api`, align with user on task group structure, architectural scope, and concurrency validation criteria via `AskUserQuestion`, and generate feature specification documents under `specs/2026-09-24-phase-2-rest-api/`.
+- **User Alignment Confirmed**:
+  - Structure: 3 Sequenced Task Groups (Group 1: Ring Buffer History with RWMutex, Group 2: HTTP Handlers, Atomic ID & Error Envelopes, Group 3: Adversarial Concurrency & Race Detection) plus Phase Delivery.
+  - Scope: Canonical Spec Scope (Thread-safe ring buffer with cap=20, RWMutex, FIFO eviction, atomic.Uint64 ID sequence, net/http with production timeouts, CORS, panic recovery middleware, strict SPEC.md error catalog).
+  - Validation: Exhaustive Concurrency Gate (Adversarial test with 60+ parallel goroutines reading/writing history under `go test -v -race`, table-driven HTTP handler tests, exact error catalog assertion, and statement coverage $\ge 95\%$ on `internal/history` and `internal/api`).
+- **Actions & Artifacts Generated**:
+  - Git Branch: Switched to `feature/phase-2-rest-api`.
+  - `phase_2_rest_api_plan.md`: Implementation plan artifact.
+  - `specs/2026-09-24-phase-2-rest-api/plan.md`: Actionable task groups with acceptance checkboxes.
+  - `specs/2026-09-24-phase-2-rest-api/requirements.md`: Ring buffer invariants, atomic ID, HTTP timeouts, error catalog.
+  - `specs/2026-09-24-phase-2-rest-api/validation.md`: Quality gates, concurrency test commands, and merge-readiness checklist.
+- **Verification & Validation**:
+  - Verified active branch with `git branch`.
+  - Verified directory structure and file contents in `specs/2026-09-24-phase-2-rest-api/`.
+
+### Prompt #011 — 2026-09-24 23:41:30 -03:00
+- **Phase**: Phase 2 (Go REST API Microservice, History & Concurrency Tests)
+- **Intent**: Execute complete implementation of in-memory history ring buffer, REST API microservice with production timeouts, CORS and panic recovery middleware, atomic sequential IDs, error catalog enforcement, adversarial concurrency tests with 60 parallel goroutines, and verify statement coverage ≥ 95%.
+- **Skill Stack Activated**:
+  - `/golang-patterns`: Thread-safe circular ring buffer with fixed capacity 20 and `sync.RWMutex`, atomic counter via `atomic.Uint64`, HTTP timeouts, panic recovery and CORS middleware.
+  - `/golang-testing`: Table-driven tests, subtests, race detector verification (`-race`), adversarial concurrency testing (60 parallel goroutines).
+  - `/fullstack-testing`: HTTP integration testing via `httptest.ResponseRecorder`, strict JSON error envelope assertions.
+  - `/pr-description-generator`: PR description generation in Spanish structured by architectural layers.
+- **Actions & Artifacts Generated**:
+  - `backend/internal/history/history.go`: Implemented thread-safe ring buffer (`cap = 20`, FIFO eviction, reverse chronological ordering).
+  - `backend/internal/history/history_test.go`: Table-driven tests for history buffer (100.0% coverage).
+  - `backend/internal/history/concurrency_test.go`: Stress test with 60 parallel goroutines (30 writers, 30 readers) passing with zero race warnings.
+  - `backend/internal/api/dto.go`: Standardized DTOs, `ErrorResponse` envelope, and JSON serialization helpers.
+  - `backend/internal/api/middleware.go`: Implemented `CORSMiddleware` and `PanicRecoveryMiddleware`.
+  - `backend/internal/api/server.go`: Implemented `Server`, `HandleCalculate`, and `HandleHistory`.
+  - `backend/internal/api/api_test.go`: Comprehensive table-driven tests for all operations and error catalog cases (99.5% coverage).
+  - `backend/internal/api/concurrency_test.go`: 60 parallel HTTP requests validating atomic ID monotonicity (`1..40`) and zero data races.
+  - `backend/cmd/api/main.go`: Wired domain calculator and history repository into HTTP server.
+  - `specs/2026-09-24-phase-2-rest-api/plan.md`: Updated checklist and completed status.
+  - `specs/roadmap.md`: Updated Phase 2 checklist.
+  - Opened GitHub Pull Request: [PR #3: Implementar microservicio REST, historial en ring buffer y concurrencia](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/3) targeting `main` from `feature/phase-2-rest-api`.
+- **Verification & Validation**:
+  - Backend tests & race detection: `go test -v -race -cover ./...` -> 100% pass, 0 race conditions.
+  - Statement coverage: `internal/history` 100.0%, `internal/api` 99.5%, `internal/calculator` 97.7%.
+  - Static analysis: `go vet ./...` -> clean, 0 warnings.
+  - Frontend smoke & lint check: `pnpm test && pnpm type-check && pnpm lint` -> 100% pass, 0 warnings.
+
 
 
 
