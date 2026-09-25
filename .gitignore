@@ -1,0 +1,46 @@
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Go (Backend)
+/backend/bin/
+/backend/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Node & Frontend
+node_modules/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/dist-ssr/
+*.local
+.env*.local
+.pnpm-debug.log*
+
+# Strictly Ban Non-pnpm Lockfiles
+package-lock.json
+yarn.lock
+
+# Test & Coverage Outputs
+.nyc_output/
+coverage/
+
+# IDE & Editor Settings
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-violet-twilight: #5644c0;
+  --color-rose-kiss: #fe5ea3;
+  --color-raspberry-plum: #ad3083;
+  --color-petal-pink: #bb80a9;
+  --color-cinnamon-wood: #bb7462;
+  --color-powder-blue: #98b5cc;
+  --color-lobster-pink: #b86b60;
+  --color-midnight-violet: #36294b;
+}
+
+:root {
+  --violet-twilight: #5644c0;
+  --rose-kiss: #fe5ea3;
+  --raspberry-plum: #ad3083;
+  --petal-pink: #bb80a9;
+  --cinnamon-wood: #bb7462;
+  --powder-blue: #98b5cc;
+  --lobster-pink: #b86b60;
+  --midnight-violet: #36294b;
+
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--midnight-violet);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(86, 68, 192, 0.45), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(173, 48, 131, 0.40), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(254, 94, 163, 0.15), transparent 60%);
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apple Liquid Glassmorphism Core Tokens */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.glass-button:active {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(1px);
+}
+
+.glass-accent {
+  background: linear-gradient(135deg, rgba(254, 94, 163, 0.8), rgba(173, 48, 131, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 20px rgba(173, 48, 131, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
