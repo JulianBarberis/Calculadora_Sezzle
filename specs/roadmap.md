@@ -158,5 +158,5 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
   - [x] Complete `specs/prompts.md` audit log.
 - [x] **4.4 Phase Completion & PR Delivery Workflow**
   - [x] Run all test suites, race detection, and linters (`docker compose build`, `node tests/e2e/runner.mjs`).
-  - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
-  - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
+  - [x] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
+  - [x] Record the PR link in the phase documentation. *(PR URL: [PR #5](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/5))*

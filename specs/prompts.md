@@ -322,6 +322,7 @@ Each interaction is recorded using the following standardized audit schema:
   - Container teardown: `docker compose down` -> clean network and container removal.
   - Backend regression: `cd backend && go test -v -race -cover ./...` -> 100% pass, 0 data races.
   - Frontend validation: `cd frontend && pnpm test && pnpm type-check && pnpm lint && pnpm build` -> 100% pass, 0 errors/warnings.
+  - GitHub Pull Request: [PR #5: Implementar docker compose con healthchecks, suite e2e y documentacion](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/5) targeting `main` from `feature/phase-4-containerization-e2e`.
 
 
 

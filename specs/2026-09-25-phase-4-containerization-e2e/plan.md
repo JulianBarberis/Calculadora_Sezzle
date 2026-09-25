@@ -115,11 +115,11 @@ Designated Skills: `/docker-patterns`, `/fullstack-testing`, `/pr-description-ge
   - Run frontend suite: `cd frontend && pnpm test && pnpm type-check && pnpm lint && pnpm build`.
   - Run containerized E2E suite: `docker compose build && docker compose up -d && node tests/e2e/runner.mjs && docker compose down`.
 
-- [ ] **Task 4.2: Branch Push & Pull Request Creation**
+- [x] **Task 4.2: Branch Push & Pull Request Creation**
   - Push branch to GitHub: `git push -u origin feature/phase-4-containerization-e2e`.
   - Open a Pull Request targeting `main`.
 
-- [ ] **Task 4.3: Mandatory `/pr-description-generator` Invocation**
+- [x] **Task 4.3: Mandatory `/pr-description-generator` Invocation**
   - Invoke `/pr-description-generator` to draft the PR description in Spanish, structured by architectural layers:
     - **Controller:** (Reverse proxy routing, E2E HTTP verification assertions)
     - **Service:** (End-to-end precision verification cases)
@@ -127,7 +127,7 @@ Designated Skills: `/docker-patterns`, `/fullstack-testing`, `/pr-description-ge
     - **DTO / Model:** (E2E contracts, response envelopes)
     - **Configuration:** (`docker-compose.yml`, Dockerfiles, Nginx config, README.md)
 
-- [ ] **Task 4.4: Documentation Traceability**
+- [x] **Task 4.4: Documentation Traceability**
   - Record PR link in `specs/roadmap.md` and this `plan.md`.
   - Add Prompt Audit Log entry in `specs/prompts.md`.
-  - **GitHub PR URL**: `TBD`
+  - **GitHub PR URL**: [PR #5](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/5)
