@@ -94,5 +94,52 @@ Each interaction is recorded using the following standardized audit schema:
   - Checked git diff across modified files.
   - Confirmed alignment between `AGENTS.md`, `specs/roadmap.md`, and `implementation_plan.md`.
 
+### Prompt #005 — 2026-09-24 22:51:17 -03:00
+- **Phase**: Phase 0 (Scaffolding, `pnpm` Setup & CI/CD Pipeline First)
+- **Intent**: Create feature branch `feature/phase-0-scaffolding`, align on feature specs via `AskUserQuestion` grouped by plan, requirements, and validation, and author feature specification documents under `specs/2026-09-24-phase-0-scaffolding/`.
+- **User Alignment Confirmed**:
+  - Structure: 3 Sequenced Task Groups (Group 1: Workspace & Repo Scaffolding, Group 2: Tooling & Baseline Config, Group 3: CI/CD Pipeline) plus Phase Completion & PR Delivery.
+  - Scope: Lean Baseline Scope (Go standard library baseline for Phase 0, React 19 + TypeScript strict + Vite + Tailwind v4 + Lucide React + Vitest with `pnpm`).
+  - Validation: Comprehensive Multi-Tier Gate (`go vet`, `go build`, `go test -race`, `pnpm test`, `type-check`, `lint`, `build`, GitHub Actions CI validation).
+- **Actions & Artifacts Generated**:
+  - Git Branch: Switched to `feature/phase-0-scaffolding`.
+  - `phase_0_scaffolding_plan.md`: Implementation plan artifact.
+  - `specs/2026-09-24-phase-0-scaffolding/plan.md`: Actionable task groups with acceptance checkboxes.
+  - `specs/2026-09-24-phase-0-scaffolding/requirements.md`: Detailed scope, decisions, and architectural invariants.
+  - `specs/2026-09-24-phase-0-scaffolding/validation.md`: Quality gates, test commands, and merge-readiness checklist.
+- **Verification & Validation**:
+  - Verified branch status with `git branch`.
+  - Verified directory structure and file contents in `specs/2026-09-24-phase-0-scaffolding/`.
+
+### Prompt #006 — 2026-09-24 22:59:13 -03:00
+- **Phase**: Phase 0 (Scaffolding, `pnpm` Setup & CI/CD Pipeline First)
+- **Intent**: Execute all tasks of Phase 0 according to `plan.md`: root hardening, Go backend module bootstrap, React 19 + TypeScript frontend scaffolding with `pnpm`, Tailwind v4 with GTA VI sunset palette, Vitest test runner setup, multi-stage Dockerfiles, Docker Compose, and GitHub Actions CI workflow.
+- **Skill Stack Activated**:
+  - `/golang-patterns`: Idiomatic layered layout (`cmd/api`, `internal/api`, `internal/calculator`, `internal/history`), server timeouts, graceful shutdown.
+  - `/design-taste-frontend`: Apple Liquid Glassmorphism tokens (`backdrop-blur(20px)`, specular border highlights, radial ambient lighting), GTA VI sunset color scheme.
+  - `/vitest`: Vitest 5 setup with jsdom, testing library matchers, React 19 StrictMode endurance verification.
+  - `/docker-patterns`: Multi-stage Alpine Dockerfile for Go binary (non-root `appuser`), Nginx Alpine reverse proxy for frontend with SPA routing, unified `docker-compose.yml`.
+  - `/pr-description-generator`: Ready for PR delivery generation.
+- **Actions & Artifacts Generated**:
+  - `.gitignore`: Hardened against Go binaries, node_modules, dist, and non-pnpm lockfiles.
+  - `backend/go.mod`: Initialized with Go 1.22+.
+  - `backend/cmd/api/main.go`: Server bootstrap with graceful shutdown and timeouts.
+  - `backend/internal/api/health.go` & `health_test.go`: Health endpoint implementation with 100% statement coverage.
+  - `backend/internal/calculator/calculator.go` & `backend/internal/history/history.go`: Interface skeletons.
+  - `frontend/`: React 19 + TypeScript scaffolded strictly with `pnpm`.
+  - `frontend/src/index.css`: Tailwind CSS v4 entry point with GTA VI sunset variables and Apple glass classes.
+  - `frontend/src/App.tsx`: Clean UI layout without `useEffect`.
+  - `frontend/vite.config.ts`: Configured with Tailwind v4, API proxy, and Vitest test runner.
+  - `frontend/src/__tests__/smoke.test.tsx`: Vitest smoke test passing under React 19 StrictMode with zero `act(...)` warnings.
+  - `backend/Dockerfile` & `frontend/Dockerfile` & `frontend/nginx.conf`: Multi-stage container builds.
+  - `docker-compose.yml`: Validated multi-service development compose file.
+  - `.github/workflows/ci.yml`: Multi-job GitHub Actions pipeline (backend, frontend, docker).
+- **Verification & Validation**:
+  - Backend: `go vet ./...` (clean), `go test -v -race -cover ./...` (100% pass), `go build ./...` (clean).
+  - Frontend: `pnpm type-check` (0 errors), `pnpm lint` (0 warnings/errors), `pnpm test` (100% pass), `pnpm build` (clean 114ms).
+  - Docker: `docker compose config` (100% valid).
+
+
+
 
 

@@ -25,24 +25,24 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
 > - `/docker-patterns`
 > - `/pr-description-generator`
 
-- [ ] **0.1 Specification Anchoring**
+- [x] **0.1 Specification Anchoring**
   - [x] Create `AGENTS.md` (AI operational rules, SSOT, guardrails, skills matrix, PR workflow).
   - [x] Create `SPEC.md` (EARS/BDD contracts, error catalog, precision invariants).
   - [x] Create `specs/tech-stack.md` (Architectural justifications, trade-offs).
   - [x] Create `specs/roadmap.md` (Implementation checklist with phase skill stacks & PR workflow).
   - [x] Create `specs/prompts.md` (Audit prompt log template).
-- [ ] **0.2 Repository Initialization**
-  - [ ] Initialize git repository and create comprehensive `.gitignore`.
-  - [ ] Initialize Go module (`go mod init github.com/julianbarberis/sezzle-calculator`) in `backend/`.
-  - [ ] Scaffold React 19 + TypeScript + Vite frontend in `frontend/` using `pnpm create vite frontend --template react-ts`.
-  - [ ] Install frontend dependencies (`lucide-react`, `tailwindcss`, `@tailwindcss/vite`) via `pnpm add`.
-- [ ] **0.3 CI/CD GitHub Actions Pipeline**
-  - [ ] Create `.github/workflows/ci.yml`.
-  - [ ] Define Backend Job: `go test -v -race -cover ./...` with Go 1.22+.
-  - [ ] Define Frontend Job: `pnpm install`, `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`.
-  - [ ] Define Container Job: `docker compose build`.
+- [x] **0.2 Repository Initialization**
+  - [x] Initialize git repository and create comprehensive `.gitignore`.
+  - [x] Initialize Go module (`go mod init github.com/julianbarberis/sezzle-calculator`) in `backend/`.
+  - [x] Scaffold React 19 + TypeScript + Vite frontend in `frontend/` using `pnpm create vite frontend --template react-ts`.
+  - [x] Install frontend dependencies (`lucide-react`, `tailwindcss`, `@tailwindcss/vite`) via `pnpm add`.
+- [x] **0.3 CI/CD GitHub Actions Pipeline**
+  - [x] Create `.github/workflows/ci.yml`.
+  - [x] Define Backend Job: `go test -v -race -cover ./...` with Go 1.22+.
+  - [x] Define Frontend Job: `pnpm install`, `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`.
+  - [x] Define Container Job: `docker compose build`.
 - [ ] **0.4 Phase Completion & PR Delivery Workflow**
-  - [ ] Run all test suites, race detection, and linters.
+  - [x] Run all test suites, race detection, and linters.
   - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
   - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
 
