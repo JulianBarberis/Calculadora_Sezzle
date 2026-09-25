@@ -95,3 +95,19 @@ This document provides the technical rationale, architectural trade-offs, and li
 - **Backend Dockerfile**: Multi-stage build compiling a statically linked Go binary on Alpine/scratch, dropping all OS privileges to run as a non-root user.
 - **Frontend Dockerfile**: Multi-stage build producing static assets served by an optimized Nginx Alpine image with gzip compression and reverse proxy routing for `/api/v1`.
 - **Docker Compose**: Single-command orchestrator for local development and review.
+
+---
+
+## 5. Branch Protection & Repository Governance
+For exhaustive ruleset schemas, enforcement mechanisms, and administrative procedures, refer to [`specs/governance.md`](governance.md).
+
+- **Strict `main` Branch Invariants**:
+  - Direct pushes and commits to `main` are strictly blocked. All code must merge through Pull Requests.
+  - Force pushes (`--force`, `--force-with-lease`) are permanently blocked via GitHub rulesets.
+  - Branch deletions of `main` are prohibited.
+  - Linear commit history or squash merges are enforced to maintain an immutable audit trail.
+- **Mandatory CI Status Gates**:
+  - `Go Backend Verification`: `go vet`, `go test -v -race -cover ./...` ($\ge 95\%$ coverage).
+  - `React Frontend Verification`: `pnpm type-check`, `pnpm lint`, `pnpm test` (zero `act(...)` warnings), `pnpm build`.
+  - `Docker Build Verification`: `docker compose config` and `docker compose build`.
+

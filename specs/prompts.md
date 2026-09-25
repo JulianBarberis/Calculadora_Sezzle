@@ -324,6 +324,21 @@ Each interaction is recorded using the following standardized audit schema:
   - Frontend validation: `cd frontend && pnpm test && pnpm type-check && pnpm lint && pnpm build` -> 100% pass, 0 errors/warnings.
   - GitHub Pull Request: [PR #5: Implementar docker compose con healthchecks, suite e2e y documentacion](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/5) targeting `main` from `feature/phase-4-containerization-e2e`.
 
+### Prompt #016 — 2026-09-25 00:24:00 -03:00
+- **Phase**: Repository Governance & Branch Protection
+- **Intent**: Configure and document repository governance rules protecting `main` against direct commits, force pushes, and unverified merges. Activate GitHub Ruleset and document operational procedures in `specs/governance.md`, `specs/tech-stack.md`, and `AGENTS.md`.
+- **Skill Stack Activated**:
+  - `/pr-description-generator`: PR description generation in Spanish structured by architectural layers.
+- **Actions & Artifacts Generated**:
+  - `specs/governance.md`: Comprehensive repository governance specification, defining `main` protection invariants, required CI checks (`Go Backend Verification`, `React Frontend Verification`, `Docker Build Verification`), active GitHub Ruleset definition (ID `23977054`), and CLI/Web UI administration manual.
+  - `specs/tech-stack.md`: Added Section 5 detailing branch protection rules and referencing `governance.md`.
+  - `AGENTS.md`: Updated Section 3 with explicit git guardrails prohibiting direct pushes and force pushes to `main`.
+  - GitHub Remote Ruleset: Activated Ruleset ID `23977054` (`Protect main branch`) on `JulianBarberis/Calculadora_Sezzle` via GitHub API with zero bypass.
+  - GitHub Pull Request: [PR #6: Configurar y documentar reglas de gobernanza y proteccion de rama](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/6) targeting `main` from `chore/governance-branch-protection`.
+- **Verification & Validation**:
+  - Ruleset API query: `gh api /repos/JulianBarberis/Calculadora_Sezzle/rulesets/23977054` returned active status and rules (`deletion`, `non_fast_forward`, `required_linear_history`, `pull_request`, `required_status_checks`).
+  - GitHub Actions CI checks on PR #6 reported 100% pass across all jobs.
+
 
 
 
