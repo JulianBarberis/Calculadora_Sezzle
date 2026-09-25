@@ -54,19 +54,19 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
 > - `/golang-testing`
 > - `/pr-description-generator`
 
-- [ ] **1.1 Decimal Engine Implementation (`backend/internal/calculator/`)**
-  - [ ] Add `github.com/shopspring/decimal` dependency (strictly zero `float32`/`float64`, no Go `math` import).
-  - [ ] Implement operations: `Add`, `Subtract`, `Multiply`, `Divide`.
-  - [ ] Implement robust integer power (`Pow`) supporting $\pm 1000$ exponents, bases up to $10^{400}$, $0^0 = 1$, and reciprocal division for negative exponents.
-  - [ ] Implement pure decimal Newton-Raphson square root (`Sqrt`) with dynamic scale precision up to $10^{400}$ without importing Go `math`.
-  - [ ] Implement unary ($a / 100$) and binary ($(a \times b) / 100$) percentage.
-  - [ ] Enforce domain validations (division by zero, negative square root, exponent bounds).
-- [ ] **1.2 Domain Engine Unit Testing**
-  - [ ] Author table-driven unit tests in `calculator_test.go` (`/golang-testing`).
-  - [ ] Verify financial precision edge cases ($0.1 + 0.2 = 0.3$, $0^0 = 1$, $\sqrt{10^{400}} = 10^{200}$).
-  - [ ] Validate coverage meets or exceeds 95% (`go test -v -cover ./...`).
+- [x] **1.1 Decimal Engine Implementation (`backend/internal/calculator/`)**
+  - [x] Add `github.com/shopspring/decimal` dependency (strictly zero `float32`/`float64`, no Go `math` import).
+  - [x] Implement operations: `Add`, `Subtract`, `Multiply`, `Divide`.
+  - [x] Implement robust integer power (`Pow`) supporting $\pm 1000$ exponents, bases up to $10^{400}$, $0^0 = 1$, and reciprocal division for negative exponents.
+  - [x] Implement pure decimal Newton-Raphson square root (`Sqrt`) with dynamic scale precision up to $10^{400}$ without importing Go `math`.
+  - [x] Implement unary ($a / 100$) and binary ($(a \times b) / 100$) percentage.
+  - [x] Enforce domain validations (division by zero, negative square root, exponent bounds).
+- [x] **1.2 Domain Engine Unit Testing**
+  - [x] Author table-driven unit tests in `calculator_test.go` (`/golang-testing`).
+  - [x] Verify financial precision edge cases ($0.1 + 0.2 = 0.3$, $0^0 = 1$, $\sqrt{10^{400}} = 10^{200}$).
+  - [x] Validate coverage meets or exceeds 95% (`go test -v -cover ./...` achieved 97.7%).
 - [ ] **1.3 Phase Completion & PR Delivery Workflow**
-  - [ ] Run all test suites, race detection, and linters (`go test -v -race -cover ./...` $\ge 95\%$).
+  - [x] Run all test suites, race detection, and linters (`go test -v -race -cover ./...` $\ge 95\%$).
   - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
   - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
 
