@@ -11,6 +11,8 @@ import (
 	"time"
 
 	"github.com/julianbarberis/sezzle-calculator/internal/api"
+	"github.com/julianbarberis/sezzle-calculator/internal/calculator"
+	"github.com/julianbarberis/sezzle-calculator/internal/history"
 )
 
 func main() {
@@ -19,12 +21,13 @@ func main() {
 		port = "8080"
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("GET /api/v1/health", api.HealthHandler)
+	calcEngine := calculator.New()
+	historyBuf := history.New(history.DefaultCapacity)
+	apiServer := api.NewServer(calcEngine, historyBuf)
 
 	server := &http.Server{
 		Addr:              ":" + port,
-		Handler:           mux,
+		Handler:           apiServer.Routes(),
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       15 * time.Second,
 		WriteTimeout:      15 * time.Second,
