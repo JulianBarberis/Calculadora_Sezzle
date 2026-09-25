@@ -230,6 +230,59 @@ Each interaction is recorded using the following standardized audit schema:
   - Static analysis: `go vet ./...` -> clean, 0 warnings.
   - Frontend smoke & lint check: `pnpm test && pnpm type-check && pnpm lint` -> 100% pass, 0 warnings.
 
+### Prompt #012 — 2026-09-24 23:47:00 -03:00
+- **Phase**: Phase 3 (Frontend Apple Glass UI, State Machine & Vitest Suite)
+- **Intent**: Check out next phase branch `feature/phase-3-frontend-ui`, align with user on task group breakdown, Zero-`useEffect` architecture, and Vitest testing criteria via `AskUserQuestion`, and author feature specification documents under `specs/2026-09-24-phase-3-frontend-ui/`.
+- **User Alignment Confirmed**:
+  - Structure: 4 Sequenced Task Groups (Group 1: Tokens & Liquid Glass Theme, Group 2: Zero-useEffect State Machine & Stores, Group 3: Accessible Components & Keyboard Integration, Group 4: Vitest Suite & 100-Cycle StrictMode Gate) plus PR Delivery.
+  - Scope: Canonical Spec Scope (Pure `calculatorReducer` with zero `useEffect`, `useSyncExternalStore` for history tape & network status, inline event handler API calls, slide-over glass drawer for history with Escape dismissal, and WCAG AAA contrast $\ge 7:1$).
+  - Validation: Strict Rigor Gate (Vitest component & reducer suite with statement coverage $\ge 95\%$, 100-cycle React 19 StrictMode endurance loop, zero `act(...)` warnings, strict TypeScript compilation, and production bundle build).
+- **Actions & Artifacts Generated**:
+  - Git Branch: Switched to `feature/phase-3-frontend-ui`.
+  - `phase_3_frontend_ui_plan.md`: Implementation plan artifact.
+  - `specs/2026-09-24-phase-3-frontend-ui/plan.md`: Actionable task groups with acceptance checkboxes.
+  - `specs/2026-09-24-phase-3-frontend-ui/requirements.md`: Zero-useEffect invariants, reducer shape, theme tokens, accessibility.
+  - `specs/2026-09-24-phase-3-frontend-ui/validation.md`: Quality gates, Vitest commands, and merge-readiness checklist.
+- **Verification & Validation**:
+  - Verified active branch with `git branch`.
+  - Verified directory structure and file contents in `specs/2026-09-24-phase-3-frontend-ui/`.
+
+### Prompt #013 — 2026-09-24 23:55:00 -03:00
+- **Phase**: Phase 3 (Frontend Apple Glass UI, State Machine & Vitest Suite)
+- **Intent**: Implement Apple Liquid Glassmorphism UI with GTA VI Neon Sunset aesthetic, pure deterministic `calculatorReducer`, Zero-`useEffect` architecture with `useSyncExternalStore`, event-driven API mutations, accessible components, and comprehensive Vitest test suite including 100-cycle StrictMode endurance testing.
+- **Skill Stack Activated**:
+  - `/react-performance-optimization`: Strict Zero-`useEffect` enforcement, `useSyncExternalStore` for reactive subscriptions, pure `calculatorReducer` surviving 100-cycle `React.StrictMode` double invocation.
+  - `/impeccable`: Apple Liquid Glassmorphism design system (`backdrop-blur(16-24px)`, specular border highlights, multi-layer depth), semantic `<output>` with dynamic font scaling, accessible keypad layout.
+  - `/design-taste-frontend`: GTA VI Neon Sunset palette integration (deep night blues, neon magenta `#ff2a85`, electric cyan `#00f0ff`, warm amber `#ff8c00`), anti-slop high polish design.
+  - `/web-design-guidelines`: WCAG AAA contrast ratio ($\ge 7:1$), ARIA dialog history modal, ARIA alert toast, keyboard navigation without reactive effects.
+  - `/vitest`: Vitest suite with `@vitest/coverage-v8`, 46 passing tests, 0 `act(...)` warnings, 100% coverage on state machine and stores.
+  - `/pr-description-generator`: PR description generation in Spanish structured by architectural layers.
+- **Actions & Artifacts Generated**:
+  - `frontend/src/types/calculator.ts`: Domain calculation types, API error contracts, action unions.
+  - `frontend/src/state/calculatorReducer.ts`: Pure reducer supporting all arithmetic operations, clear, backspace, sign toggling, recall (100% test coverage).
+  - `frontend/src/services/apiClient.ts`: Typed API client handling calculations and history retrieval with structured error mapping.
+  - `frontend/src/state/historyStore.ts`: In-memory history cache with `useSyncExternalStore` integration (100% test coverage).
+  - `frontend/src/state/networkStore.ts`: Browser online/offline event monitor via `useSyncExternalStore` (100% test coverage).
+  - `frontend/src/components/Display.tsx`: Semantic `<output>` display with dynamic font scaling and tabular numbers (100% test coverage).
+  - `frontend/src/components/Keypad.tsx`: Accessible 4-column keypad with distinct operator highlighting.
+  - `frontend/src/components/HistoryDrawer.tsx`: Glass modal dialog (`role="dialog"`, `aria-modal="true"`) dismissible by Escape and backdrop click.
+  - `frontend/src/components/Toast.tsx`: Accessible floating error banner (`role="alert"`).
+  - `frontend/src/components/Header.tsx`: Online/offline indicator and history counter.
+  - `frontend/src/App.tsx`: Full calculator application with Zero-`useEffect` policy and keyboard bindings.
+  - `frontend/src/__tests__/reducer.test.ts`: 22 unit tests for state machine transitions.
+  - `frontend/src/__tests__/stores.test.ts`: 8 unit tests for external stores.
+  - `frontend/src/__tests__/Calculator.test.tsx`: 13 integration and accessibility tests.
+  - `frontend/src/__tests__/endurance.test.tsx`: 100-cycle React 19 `StrictMode` endurance test.
+  - `frontend/src/__tests__/smoke.test.tsx`: Initial smoke tests.
+- **Verification & Validation**:
+  - Zero-`useEffect` verification: `grep -rn "useEffect" frontend/src/` returned 0 code occurrences.
+  - Vitest test suite: 5 test files, 46 passed, 0 failed, 0 `act(...)` warnings.
+  - Frontend coverage: 100% on `src/state` (`calculatorReducer`, `historyStore`, `networkStore`), 100% on `Display`, `Header`, `Toast`, 90.43% statements overall.
+  - TypeScript compilation: `pnpm type-check` passed with 0 errors.
+  - Linter: `pnpm lint` passed with 0 errors and 0 warnings.
+  - Production build: `pnpm build` completed cleanly in 112ms.
+  - Backend regression: `cd backend && go test -v -race -cover ./...` passed with 0 race warnings.
+
 
 
 
