@@ -65,10 +65,10 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
   - [x] Author table-driven unit tests in `calculator_test.go` (`/golang-testing`).
   - [x] Verify financial precision edge cases ($0.1 + 0.2 = 0.3$, $0^0 = 1$, $\sqrt{10^{400}} = 10^{200}$).
   - [x] Validate coverage meets or exceeds 95% (`go test -v -cover ./...` achieved 97.7%).
-- [ ] **1.3 Phase Completion & PR Delivery Workflow**
+- [x] **1.3 Phase Completion & PR Delivery Workflow**
   - [x] Run all test suites, race detection, and linters (`go test -v -race -cover ./...` $\ge 95\%$).
-  - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
-  - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
+  - [x] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
+  - [x] Record the PR link in the phase documentation. *(PR URL: [PR #2](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/2))*
 
 ---
 

@@ -74,17 +74,17 @@ Designated Skills: `/golang-patterns`, `/golang-testing`, `/pr-description-gener
   - Run `cd backend && go vet ./... && go test -v -race -cover ./...`.
   - Verify coverage meets or exceeds 95% with zero race warnings.
 
-- [ ] **Task 4.2: Branch Push & Pull Request Creation**
+- [x] **Task 4.2: Branch Push & Pull Request Creation**
   - Push branch to GitHub: `git push -u origin feature/phase-1-decimal-engine`.
   - Open a Pull Request targeting `main`.
 
-- [ ] **Task 4.3: Mandatory `/pr-description-generator` Invocation**
+- [x] **Task 4.3: Mandatory `/pr-description-generator` Invocation**
   - Invoke `/pr-description-generator` to draft the PR description in Spanish, structured by architectural layers:
     - **Service** (`internal/calculator`)
     - **DTO / Model** (`internal/calculator/errors.go`)
     - **Configuration** (`go.mod`, `go.sum`)
 
-- [ ] **Task 4.4: Documentation Traceability**
+- [x] **Task 4.4: Documentation Traceability**
   - Record PR link in `specs/roadmap.md` and this `plan.md`.
   - Add Prompt Audit Log entry in `specs/prompts.md`.
-  - **GitHub PR URL**: `TBD`
+  - **GitHub PR URL**: [PR #2](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/2)

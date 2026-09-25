@@ -179,6 +179,7 @@ Each interaction is recorded using the following standardized audit schema:
   - `backend/internal/calculator/calculator_test.go`: Table-driven tests verifying financial precision ($0.1 + 0.2 = 0.3$), boundaries ($0^0 = 1$, $2^{-3} = 0.125$, $\sqrt{10^{400}} = 10^{200}$), domain errors, and extreme scale radicands.
   - `specs/2026-09-24-phase-1-decimal-engine/plan.md`: Updated checklist and completed status.
   - `specs/roadmap.md`: Updated Phase 1 checklist.
+  - Opened GitHub Pull Request: [PR #2: Implementar motor de cálculo decimal de precisión arbitraria en Go](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/2) targeting `main` from `feature/phase-1-decimal-engine`.
 - **Verification & Validation**:
   - Backend tests & race detection: `go test -v -race -cover ./...` -> 100% pass, 0 race conditions, 97.7% statement coverage on `internal/calculator`.
   - Zero float audit: `grep -rnE '\b(float32|float64)\b|"math"' backend/internal/calculator/` -> 0 violations.
