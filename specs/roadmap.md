@@ -146,17 +146,17 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
 > - `/fullstack-testing`
 > - `/pr-description-generator`
 
-- [ ] **4.1 Docker Packaging (`/docker-patterns`)**
-  - [ ] Multi-stage `backend/Dockerfile` producing a minimal scratch/alpine static Go binary.
-  - [ ] Multi-stage `frontend/Dockerfile` building Vite assets and serving via Nginx Alpine reverse proxy.
-  - [ ] Root `docker-compose.yml` orchestrating backend and frontend services.
-- [ ] **4.2 End-to-End Automated Verification (`/fullstack-testing`)**
-  - [ ] Write zero-dependency `tests/e2e/runner.mjs`.
-  - [ ] Verify all API routes, precision calculations, and error envelopes against running containers.
-- [ ] **4.3 Documentation & Sezzle Submission**
-  - [ ] Write comprehensive `README.md` with architecture diagrams, quickstart instructions, API curl examples, and design decisions.
-  - [ ] Complete `specs/prompts.md` audit log.
-- [ ] **4.4 Phase Completion & PR Delivery Workflow**
-  - [ ] Run all test suites, race detection, and linters (`docker compose build`, `node tests/e2e/runner.mjs`).
+- [x] **4.1 Docker Packaging (`/docker-patterns`)**
+  - [x] Multi-stage `backend/Dockerfile` producing a minimal scratch/alpine static Go binary.
+  - [x] Multi-stage `frontend/Dockerfile` building Vite assets and serving via Nginx Alpine reverse proxy.
+  - [x] Root `docker-compose.yml` orchestrating backend and frontend services.
+- [x] **4.2 End-to-End Automated Verification (`/fullstack-testing`)**
+  - [x] Write zero-dependency `tests/e2e/runner.mjs`.
+  - [x] Verify all API routes, precision calculations, and error envelopes against running containers.
+- [x] **4.3 Documentation & Sezzle Submission**
+  - [x] Write comprehensive `README.md` with architecture diagrams, quickstart instructions, API curl examples, and design decisions.
+  - [x] Complete `specs/prompts.md` audit log.
+- [x] **4.4 Phase Completion & PR Delivery Workflow**
+  - [x] Run all test suites, race detection, and linters (`docker compose build`, `node tests/e2e/runner.mjs`).
   - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
   - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*

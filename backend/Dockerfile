@@ -16,6 +16,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /bin/api ./cmd/api
 # Production stage
 FROM alpine:3.21
 
+# Install curl for healthcheck probe
+RUN apk add --no-cache curl
+
 # Create non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 

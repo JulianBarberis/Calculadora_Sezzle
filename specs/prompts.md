@@ -284,6 +284,45 @@ Each interaction is recorded using the following standardized audit schema:
   - Backend regression: `cd backend && go test -v -race -cover ./...` passed with 0 race warnings.
   - GitHub Pull Request: [PR #4: Implementar interfaz Apple Glass, máquina de estados y suite vitest](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/4) targeting `main` from `feature/phase-3-frontend-ui`.
 
+### Prompt #014 — 2026-09-25 00:10:36 -03:00
+- **Phase**: Phase 4 (Containerization, Verification & Documentation)
+- **Intent**: Find next phase on `specs/roadmap.md`, create feature branch `feature/phase-4-containerization-e2e`, align with user on feature spec aspects via `AskUserQuestion`, and generate specification directory `specs/2026-09-25-phase-4-containerization-e2e/` with `plan.md`, `requirements.md`, and `validation.md`.
+- **User Alignment Confirmed**:
+  - Task Group Structure: 4 Sequenced Task Groups (TG1: Hardening Docker Multi-Stage y Compose, TG2: Suite E2E con runner.mjs de cero dependencias, TG3: Documentación exhaustiva README.md y diagramas, TG4: Flujo de entrega PR y trazabilidad).
+  - E2E Verification: Runner nativo ESM Node.js (`tests/e2e/runner.mjs`) sin dependencias externas que valide `/health`, operaciones de precisión arbitraria, catálogo de errores y buffer de historial contra los contenedores activos.
+  - Documentation Scope: README.md integral para entrega de Sezzle con arquitectura de alto nivel, diagramas Mermaid, especificación de precisión sin floats, contratos API, guía de ejecución local/Docker, decisiones de diseño y matriz de verificación.
+- **Actions & Artifacts Generated**:
+  - Git Branch: Created and switched to `feature/phase-4-containerization-e2e`.
+  - `phase_4_containerization_e2e_plan.md`: Implementation plan artifact.
+  - `specs/2026-09-25-phase-4-containerization-e2e/plan.md`: Actionable task groups with acceptance checkboxes.
+  - `specs/2026-09-25-phase-4-containerization-e2e/requirements.md`: Containerization invariants, E2E runner specifications, and documentation scope.
+  - `specs/2026-09-25-phase-4-containerization-e2e/validation.md`: Quality gates, E2E test invariants, and merge-readiness checklist.
+- **Verification & Validation**:
+  - Verified active branch with `git branch`.
+  - Verified directory structure and file contents in `specs/2026-09-25-phase-4-containerization-e2e/`.
+
+### Prompt #015 — 2026-09-25 00:14:00 -03:00
+- **Phase**: Phase 4 (Containerization, Verification & Documentation)
+- **Intent**: Execute Phase 4 implementation: harden multi-stage Docker builds, orchestrate services with healthchecks in `docker-compose.yml`, build zero-dependency Node.js ESM E2E test runner (`tests/e2e/runner.mjs`), author production-grade `README.md`, and execute full-stack verification.
+- **Skill Stack Activated**:
+  - `/docker-patterns`: Multi-stage Docker packaging (`backend/Dockerfile`, `frontend/Dockerfile`), non-root execution (`appuser:appgroup`), Nginx reverse proxy with security headers, native healthcheck probes, and dependency ordering (`depends_on.condition: service_healthy`).
+  - `/fullstack-testing`: Zero-dependency native Node.js ESM E2E test runner (`tests/e2e/runner.mjs`) validating health probes, arbitrary precision arithmetic, extreme scale bounds ($10^{400}$), domain error catalogs, history ring buffer lifecycle, and Nginx reverse proxy routing against live containers.
+  - `/pr-description-generator`: PR description generation in Spanish structured by architectural layers.
+- **Actions & Artifacts Generated**:
+  - `backend/Dockerfile`: Hardened Alpine runtime with `curl` for healthcheck probe and unprivileged execution.
+  - `docker-compose.yml`: Added healthchecks for backend and frontend services with ordered startup condition.
+  - `tests/e2e/runner.mjs`: Zero-dependency Node.js ESM E2E runner with ANSI output and 6 test suites (19 tests).
+  - `README.md`: Comprehensive production documentation with Mermaid architecture diagram, mathematical precision proofs, quickstart, API reference, error catalog, design decisions, and quality matrix.
+  - `specs/2026-09-25-phase-4-containerization-e2e/plan.md`: Updated checklist.
+  - `specs/roadmap.md`: Updated Phase 4 checklist.
+- **Verification & Validation**:
+  - Docker Compose build: `docker compose build` -> 100% successful build of backend and frontend images.
+  - Live container launch: `docker compose up -d` -> both containers healthy within 5 seconds.
+  - End-to-End test suite: `node tests/e2e/runner.mjs` -> 19/19 tests passed (100% pass rate).
+  - Container teardown: `docker compose down` -> clean network and container removal.
+  - Backend regression: `cd backend && go test -v -race -cover ./...` -> 100% pass, 0 data races.
+  - Frontend validation: `cd frontend && pnpm test && pnpm type-check && pnpm lint && pnpm build` -> 100% pass, 0 errors/warnings.
+
 
 
 
