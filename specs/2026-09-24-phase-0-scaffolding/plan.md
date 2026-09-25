@@ -100,4 +100,4 @@ Designated Skills: `/golang-patterns`, `/design-taste-frontend`, `/vitest`, `/do
 - [x] **Task 4.4: Documentation Traceability**
   - Record PR link in `specs/roadmap.md` and this `plan.md`.
   - Add Prompt Audit Log entry in `specs/prompts.md`.
-  - **GitHub PR URL**: [PR: Scaffolding Phase 0](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/new/feature/phase-0-scaffolding)
+  - **GitHub PR URL**: [PR #1: Inicializar scaffolding de backend Go, frontend React 19 con pnpm, tooling y CI/CD](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/1)
