@@ -41,10 +41,10 @@ This document tracks the step-by-step development milestones for the Sezzle FinT
   - [x] Define Backend Job: `go test -v -race -cover ./...` with Go 1.22+.
   - [x] Define Frontend Job: `pnpm install`, `pnpm type-check`, `pnpm lint`, `pnpm test`, `pnpm build`.
   - [x] Define Container Job: `docker compose build`.
-- [ ] **0.4 Phase Completion & PR Delivery Workflow**
+- [x] **0.4 Phase Completion & PR Delivery Workflow**
   - [x] Run all test suites, race detection, and linters.
-  - [ ] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
-  - [ ] Record the PR link in the phase documentation. *(PR URL: `TBD`)*
+  - [x] Create a GitHub Pull Request using the `/pr-description-generator` skill (in Spanish, structured by architectural layers).
+  - [x] Record the PR link in the phase documentation. *(PR URL: [PR: Scaffolding Phase 0](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/new/feature/phase-0-scaffolding))*
 
 ---
 
