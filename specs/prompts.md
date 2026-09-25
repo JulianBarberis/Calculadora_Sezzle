@@ -63,3 +63,36 @@ Each interaction is recorded using the following standardized audit schema:
 - **Actions & Artifacts Generated**:
   - `specs/prompts.md`: Updated with confirmation audit entry.
 
+### Prompt #003 — 2026-09-24 21:53:50 -03:00
+- **Phase**: Phase 0 (Specification Anchoring & Skill Stack Integration)
+- **Intent**: Formally bind the specialized agent skill stack into `AGENTS.md` and `specs/roadmap.md` per domain and phase.
+- **Skill Stack Enforced**:
+  - **Backend**: `golang-patterns`, `golang-testing`
+  - **Frontend**: `design-taste-frontend`, `impeccable`, `react-performance-optimization`, `vitest`, `fullstack-testing`
+  - **Docker & Documentation**: `docker-patterns`, `technical-documentation`
+- **Actions & Artifacts Generated**:
+  - `AGENTS.md`: Added Section 2 "Required Agent Skills Matrix" explicitly categorizing backend, frontend, and DevOps/documentation skills.
+  - `specs/roadmap.md`: Added Skills Stack Matrix and updated each phase (Phases 0 through 4) with active skill headers and item-level skill mapping.
+- **Verification & Validation**:
+  - Verified markdown formatting and link integrity across `AGENTS.md` and `specs/roadmap.md`.
+
+### Prompt #004 — 2026-09-24 22:00:39 -03:00
+- **Phase**: Phase 0 (Operational Protocol & PR Workflow Anchoring)
+- **Intent**: Formalize the Skill Activation Matrix and mandatory Pull Request delivery workflow upon phase completion.
+- **Skill Stack Enforced**:
+  - **Go Backend**: `/golang-patterns`, `/golang-testing`
+  - **React Frontend (State)**: `/react-performance-optimization`
+  - **Frontend UI/UX & A11y**: `/impeccable`, `/design-taste-frontend`, `/web-design-guidelines`
+  - **Frontend Testing**: `/vitest`
+  - **DevOps & Containerization**: `/docker-patterns`, `/fullstack-testing`
+  - **Pull Requests**: `/pr-description-generator`
+- **Actions & Artifacts Generated**:
+  - `AGENTS.md`: Added Section 2 "Skill Activation Matrix" and Section 3 "Phase Completion & PR Delivery Workflow" establishing pre-verification gates, branch pushes, mandatory `/pr-description-generator` invocations in Spanish (structured by Controller, Service, Repository, DTO/Model, Configuration), and PR URL recording.
+  - `specs/roadmap.md`: Updated Skills Activation Matrix, explicitly listed designated skills per phase, and appended the mandatory 3-item PR completion checklist as the final task of every phase.
+  - `implementation_plan.md`: Synchronized phase skill assignments and PR completion checklists across all milestones.
+- **Verification & Validation**:
+  - Checked git diff across modified files.
+  - Confirmed alignment between `AGENTS.md`, `specs/roadmap.md`, and `implementation_plan.md`.
+
+
+
