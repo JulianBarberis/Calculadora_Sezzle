@@ -282,6 +282,7 @@ Each interaction is recorded using the following standardized audit schema:
   - Linter: `pnpm lint` passed with 0 errors and 0 warnings.
   - Production build: `pnpm build` completed cleanly in 112ms.
   - Backend regression: `cd backend && go test -v -race -cover ./...` passed with 0 race warnings.
+  - GitHub Pull Request: [PR #4: Implementar interfaz Apple Glass, máquina de estados y suite vitest](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/4) targeting `main` from `feature/phase-3-frontend-ui`.
 
 
 

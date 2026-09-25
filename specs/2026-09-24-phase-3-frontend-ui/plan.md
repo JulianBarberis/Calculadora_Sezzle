@@ -92,18 +92,18 @@ Designated Skills: `/react-performance-optimization`, `/impeccable`, `/design-ta
   - Execute `cd frontend && pnpm test && pnpm type-check && pnpm lint && pnpm build`.
   - Execute backend verification: `cd backend && go test -v -race -cover ./...`.
 
-- [ ] **Task 5.2: Branch Push & Pull Request Creation**
+- [x] **Task 5.2: Branch Push & Pull Request Creation**
   - Push branch to GitHub: `git push -u origin feature/phase-3-frontend-ui`.
   - Open a Pull Request targeting `main`.
 
-- [ ] **Task 5.3: Mandatory `/pr-description-generator` Invocation**
+- [x] **Task 5.3: Mandatory `/pr-description-generator` Invocation**
   - Invoke `/pr-description-generator` to draft the PR description in Spanish, structured by architectural layers:
     - **Controller / State** (`src/state`)
     - **Service / API Client** (`src/services`)
     - **UI / Components** (`src/components`, `src/App.tsx`)
     - **Configuration / Styling** (`src/index.css`, `vite.config.ts`)
 
-- [ ] **Task 5.4: Documentation Traceability**
+- [x] **Task 5.4: Documentation Traceability**
   - Record PR link in `specs/roadmap.md` and this `plan.md`.
   - Add Prompt Audit Log entry in `specs/prompts.md`.
-  - **GitHub PR URL**: `TBD`
+  - **GitHub PR URL**: [PR #4](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/4)
