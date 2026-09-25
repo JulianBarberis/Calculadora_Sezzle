@@ -64,6 +64,14 @@ Upon finishing any implementation phase or milestone (e.g., Phase 0, Phase 1, Ph
    - Record the PR link directly into the phase checklist in `specs/roadmap.md` and `implementation_plan.md` before checking off the phase as complete.
    - Record an audit log entry in `specs/prompts.md`.
 
+5. **Branch Protection & Non-Negotiable Git Guardrails**:
+   - **Direct Commits Prohibited**: Direct commits, merges, or pushes to `main` are **strictly forbidden** for all AI agents and human contributors.
+   - **Force Pushes Prohibited**: `git push --force` and `git push --force-with-lease` are **strictly banned** and blocked at the repository level via GitHub rulesets.
+   - **Branch Deletion Prohibited**: Deletion of the `main` branch is permanently blocked.
+   - **Mandatory Feature Branches**: All code changes, feature work, bug fixes, and documentation updates must reside on dedicated semantic branches (`feature/...`, `fix/...`, `docs/...`, `chore/...`).
+   - **Mandatory Pull Request & CI Gates**: Merges into `main` must occur exclusively via Pull Requests where all required CI status checks pass (`Go Backend Verification`, `React Frontend Verification`, `Docker Build Verification`).
+   - For full ruleset specification and operational instructions, see [`specs/governance.md`](specs/governance.md).
+
 ---
 
 ## 4. Mathematical Domain Engine Invariants (Go Backend)
