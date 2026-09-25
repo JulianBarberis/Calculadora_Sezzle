@@ -337,11 +337,61 @@ Each interaction is recorded using the following standardized audit schema:
   - GitHub Pull Request: [PR #6: Configurar y documentar reglas de gobernanza y proteccion de rama](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/6) targeting `main` from `chore/governance-branch-protection`.
 - **Verification & Validation**:
   - Ruleset API query: `gh api /repos/JulianBarberis/Calculadora_Sezzle/rulesets/23977054` returned active status and rules (`deletion`, `non_fast_forward`, `required_linear_history`, `pull_request`, `required_status_checks`).
-  - GitHub Actions CI checks on PR #6 reported 100% pass across all jobs.
+### Prompt #017 — 2026-09-25 00:54:00 -03:00
+- **Phase**: UI/UX Visual Refinements (Top Header & Navigation Bar)
+- **Intent**: Update `SPEC.md` and implement top header visual refinements: remove divider line beneath header for unified visual flow, and standardize Wifi/WifiOff status icon size to 16px (`w-4 h-4`) to optically match history icon.
+- **Actions & Artifacts Generated**:
+  - `SPEC.md`: Added Section 6.3 specifying borderless header presentation and 16px icon standardization.
+  - `frontend/src/components/Header.tsx`: Removed border-b divider line, adjusted padding, standardized Wifi/WifiOff icon size to `w-4 h-4`.
+  - `frontend/src/App.tsx`: Removed unused imports, added execution guards to calculation dispatchers.
+  - `frontend/src/__tests__/smoke.test.tsx`: Updated brand title assertions.
+- **Verification & Validation**:
+  - Frontend test suite: `pnpm test` -> 46/46 passed.
+  - TypeScript strict compilation: `pnpm type-check` -> 0 errors.
+  - Production build: `pnpm build` -> 0 errors.
 
+### Prompt #018 — 2026-09-25 01:05:00 -03:00
+- **Phase**: UI/UX Visual Refinements (Active Operator High-Contrast Visual Feedback)
+- **Intent**: Fix operator button active state when touching basic operations (`+`, `−`, `×`, `÷`, or `xʸ`). The button previously remained pink (`bg-[#ff2a85]` vs `glass-accent` gradient `#fe5ea3` / `#ad3083`), providing zero discernible visual feedback. Updated to Apple-style inverted high-contrast luminous state (`bg-white text-[#921c6b]` with specular halo and scale feedback).
+- **Skill Stack Activated**:
+  - `/react-performance-optimization`: Pure state machine rendering, zero-`useEffect` compliant, semantic `aria-pressed` attributes.
+  - `/impeccable`, `/design-taste-frontend`: Apple Liquid Glassmorphism inversion, GTA VI Neon Sunset palette contrast optimization (WCAG AAA $\ge 8:1$ contrast ratio).
+  - `/vitest`: Added integration tests verifying active operator selection, state transfer between operators, and reset behaviors.
+### Prompt #019 — 2026-09-25 01:12:00 -03:00
+- **Phase**: UI/UX Visual Refinements (Header Indicator & Action Button Geometry Harmonization)
+- **Intent**: Standardize the outer dimensions and geometry of the top header's Network Status badge and History button so both share the exact same size (`w-9 h-9` / 36×36px), border radius (`rounded-xl`), and centered flex layout.
+- **Skill Stack Activated**:
+  - `/impeccable`, `/design-taste-frontend`: Geometric symmetry, Apple Liquid Glassmorphism component harmonization.
+  - `/vitest`: Added test validating identical dimensions (`w-9 h-9`) and corner radius (`rounded-xl`).
+- **Actions & Artifacts Generated**:
+  - `SPEC.md`: Updated Section 6.3 specifying container geometry & sizing harmonization (`w-9 h-9`, `rounded-xl`).
+  - `frontend/src/components/Header.tsx`: Replaced pill-shaped `px-2.5 py-1 rounded-full` network badge with `w-9 h-9 rounded-xl flex items-center justify-center border transition-all`, harmonizing it with the `w-9 h-9 rounded-xl` history button.
+  - `frontend/src/components/Keypad.tsx`: Restored canonical keypad grid without duplication while maintaining high-contrast active operator feedback.
+  - `frontend/src/__tests__/Calculator.test.tsx`: Added test verifying identical dimensions for both header controls (expanded to 16 tests, 49 total tests).
+- **Verification & Validation**:
+  - Vitest suite: `pnpm test` -> 49/49 tests passed (100% pass, 0 `act(...)` warnings).
+  - TypeScript compilation: `pnpm type-check` -> 0 errors.
+  - Linter: `pnpm lint` -> 0 warnings, 0 errors.
+  - Bundle build: `pnpm build` -> production build succeeded.
 
-
-
-
-
+### Prompt #020 — 2026-09-25 01:53:00 -03:00
+- **Phase**: UI/UX Button Ergonomics & Return to Unpressed State
+- **Intent**: Eliminate the persistent glowing inverted state on arithmetic operator buttons (`+`, `−`, `×`, `÷`, `xʸ`). Operator buttons now operate as standard tactile push buttons with instant `:active` feedback (`scale-[0.97]`) that immediately return to their unpressed resting glass state (`glass-accent` or `glass-button`) upon release, while operation context is presented cleanly via the dedicated secondary expression line in `Display.tsx`.
+- **Skill Stack Activated**:
+  - `/design-taste-frontend`: Anti-slop UI standards, removal of artificial button glow, cohesive tactile push physics (`active:scale-[0.97]`).
+  - `/react-performance-optimization`: Clean stateless button styling, zero-`useEffect` compliant.
+  - `/vitest`: Updated integration tests verifying operator buttons return to unpressed state without sticky white highlight.
+  - `/pr-description-generator`: Generated comprehensive, architecturally structured PR description in Spanish.
+- **Actions & Artifacts Generated**:
+  - `SPEC.md`: Updated Section 6.4 to Push Button Interaction & Tactile Feedback, documenting immediate return to resting state and display-driven operation feedback.
+  - `frontend/src/components/Keypad.tsx`: Removed `getBasicOperatorClass`/`getAdvancedOperatorClass` sticky states and `aria-pressed` toggle attributes. Standardized resting classes with `:active:scale-[0.97]`.
+  - `frontend/src/components/Header.tsx`: Fixed unused `isOnline` in `HeaderProps`.
+  - `frontend/src/__tests__/Calculator.test.tsx`: Updated test suite to verify operator buttons maintain resting unpressed state without sticky white highlight.
+  - GitHub Pull Request: [PR #7: Restaurar estado pulsador de operadores y formateo cientifico](https://github.com/JulianBarberis/Calculadora_Sezzle/pull/7) targeting `main` from `fix/UI-UX-fixes-and-improvements`.
+- **Verification & Validation**:
+  - Frontend Vitest suite: `pnpm test` -> 65/65 tests passed (100% pass, 0 `act(...)` warnings).
+  - TypeScript compilation: `pnpm type-check` -> 0 errors.
+  - Linter: `pnpm lint` -> 0 warnings, 0 errors.
+  - Bundle build: `pnpm build` -> production build succeeded.
+  - Go backend regression: `cd backend && go test -v -race -cover ./...` -> 100% pass, zero race conditions, $\ge 97.7\%$ coverage.
 

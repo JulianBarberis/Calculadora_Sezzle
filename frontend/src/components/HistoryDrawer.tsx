@@ -1,5 +1,6 @@
 import { Clock, History, RotateCcw, X } from 'lucide-react';
 import type { CalculationItem } from '../types/calculator';
+import { formatDisplayNumber, formatExpression } from '../utils/formatters';
 
 interface HistoryDrawerProps {
   isOpen: boolean;
@@ -64,16 +65,16 @@ export function HistoryDrawer({ isOpen, onClose, items, onRecall }: HistoryDrawe
                 className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all group"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <div className="text-xs font-mono text-white/50 break-all">
-                    {item.expression}
+                  <div className="text-xs font-mono text-white/50 break-words">
+                    {formatExpression(item.expression)}
                   </div>
                   <span className="text-[10px] text-white/30 whitespace-nowrap">
                     #{item.id}
                   </span>
                 </div>
-                <div className="mt-1 flex items-center justify-between">
-                  <div className="text-lg font-mono font-bold text-white tracking-tight break-all">
-                    = {item.result}
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  <div className="text-lg font-mono font-bold text-white tracking-tight truncate">
+                    = {formatDisplayNumber(item.result)}
                   </div>
                   <button
                     type="button"
@@ -81,7 +82,7 @@ export function HistoryDrawer({ isOpen, onClose, items, onRecall }: HistoryDrawe
                       onRecall(item.result);
                       onClose();
                     }}
-                    className="p-1.5 rounded-lg opacity-80 group-hover:opacity-100 hover:bg-white/10 text-[#00f0ff] text-xs flex items-center gap-1 font-medium transition-all"
+                    className="p-1.5 rounded-lg opacity-80 group-hover:opacity-100 hover:bg-white/10 text-[#00f0ff] text-xs flex items-center gap-1 font-medium transition-all shrink-0"
                     aria-label={`Usar resultado ${item.result}`}
                     title="Cargar resultado en la calculadora"
                   >

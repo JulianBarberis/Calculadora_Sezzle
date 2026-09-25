@@ -9,7 +9,7 @@ interface KeypadProps {
   onToggleSign: () => void;
   onBackspace: () => void;
   isClearAll: boolean;
-  pendingOperation: OperationType | null;
+  pendingOperation?: OperationType | null;
 }
 
 export function Keypad({
@@ -21,15 +21,19 @@ export function Keypad({
   onToggleSign,
   onBackspace,
   isClearAll,
-  pendingOperation,
 }: KeypadProps) {
+  const basicOperatorClass =
+    'h-12 rounded-xl text-lg font-semibold glass-accent text-white hover:brightness-110 active:scale-[0.97] transition-all flex items-center justify-center';
+  const advancedOperatorClass =
+    'h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white active:scale-[0.97] transition-all flex items-center justify-center';
+
   return (
     <section aria-label="Teclado numérico y operaciones" className="grid grid-cols-4 gap-2.5">
       {/* Row 1: Clear, Toggle Sign, Percentage, Divide */}
       <button
         type="button"
         onClick={onClear}
-        className="h-12 rounded-xl font-semibold text-base bg-amber-500/20 text-amber-200 border border-amber-500/30 hover:bg-amber-500/30 transition-all flex items-center justify-center shadow-sm"
+        className="h-12 rounded-xl font-semibold text-base bg-amber-500/20 text-amber-200 border border-amber-500/30 hover:bg-amber-500/30 active:scale-[0.97] transition-all flex items-center justify-center shadow-sm"
         aria-label={isClearAll ? 'Borrar todo' : 'Borrar entrada'}
       >
         {isClearAll ? 'AC' : 'C'}
@@ -38,7 +42,7 @@ export function Keypad({
       <button
         type="button"
         onClick={onToggleSign}
-        className="h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white flex items-center justify-center"
+        className="h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white active:scale-[0.97] flex items-center justify-center"
         aria-label="Cambiar signo"
       >
         ±
@@ -46,25 +50,17 @@ export function Keypad({
 
       <button
         type="button"
-        onClick={() => onOperation('percentage')}
-        className={`h-12 rounded-xl font-semibold text-base transition-all flex items-center justify-center ${
-          pendingOperation === 'percentage'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40'
-            : 'glass-button text-white/90 hover:text-white'
-        }`}
-        aria-label="Porcentaje"
+        onClick={onBackspace}
+        className="h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white active:scale-[0.97] flex items-center justify-center"
+        aria-label="Borrar último dígito"
       >
-        %
+        ⌫
       </button>
 
       <button
         type="button"
         onClick={() => onOperation('divide')}
-        className={`h-12 rounded-xl font-semibold text-lg transition-all flex items-center justify-center ${
-          pendingOperation === 'divide'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40 scale-[0.98]'
-            : 'glass-accent text-white hover:brightness-110'
-        }`}
+        className={basicOperatorClass}
         aria-label="Dividir"
       >
         ÷
@@ -74,11 +70,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onOperation('sqrt')}
-        className={`h-12 rounded-xl font-semibold text-base transition-all flex items-center justify-center ${
-          pendingOperation === 'sqrt'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40'
-            : 'glass-button text-white/90 hover:text-white'
-        }`}
+        className={advancedOperatorClass}
         aria-label="Raíz cuadrada"
       >
         √
@@ -87,11 +79,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onOperation('power')}
-        className={`h-12 rounded-xl font-semibold text-base transition-all flex items-center justify-center ${
-          pendingOperation === 'power'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40'
-            : 'glass-button text-white/90 hover:text-white'
-        }`}
+        className={advancedOperatorClass}
         aria-label="Potencia"
       >
         xʸ
@@ -99,21 +87,17 @@ export function Keypad({
 
       <button
         type="button"
-        onClick={onBackspace}
-        className="h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white flex items-center justify-center"
-        aria-label="Borrar último dígito"
+        onClick={() => onOperation('percentage')}
+        className={advancedOperatorClass}
+        aria-label="Porcentaje"
       >
-        ⌫
+        %
       </button>
 
       <button
         type="button"
         onClick={() => onOperation('multiply')}
-        className={`h-12 rounded-xl font-semibold text-lg transition-all flex items-center justify-center ${
-          pendingOperation === 'multiply'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40 scale-[0.98]'
-            : 'glass-accent text-white hover:brightness-110'
-        }`}
+        className={basicOperatorClass}
         aria-label="Multiplicar"
       >
         ×
@@ -125,7 +109,7 @@ export function Keypad({
           key={digit}
           type="button"
           onClick={() => onDigit(digit)}
-          className="h-12 rounded-xl font-medium text-lg glass-button text-white flex items-center justify-center"
+          className="h-12 rounded-xl font-medium text-lg glass-button text-white hover:brightness-110 active:scale-[0.97] flex items-center justify-center"
           aria-label={`Dígito ${digit}`}
         >
           {digit}
@@ -135,11 +119,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onOperation('subtract')}
-        className={`h-12 rounded-xl font-semibold text-lg transition-all flex items-center justify-center ${
-          pendingOperation === 'subtract'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40 scale-[0.98]'
-            : 'glass-accent text-white hover:brightness-110'
-        }`}
+        className={basicOperatorClass}
         aria-label="Restar"
       >
         −
@@ -151,7 +131,7 @@ export function Keypad({
           key={digit}
           type="button"
           onClick={() => onDigit(digit)}
-          className="h-12 rounded-xl font-medium text-lg glass-button text-white flex items-center justify-center"
+          className="h-12 rounded-xl font-medium text-lg glass-button text-white hover:brightness-110 active:scale-[0.97] flex items-center justify-center"
           aria-label={`Dígito ${digit}`}
         >
           {digit}
@@ -161,11 +141,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onOperation('add')}
-        className={`h-12 rounded-xl font-semibold text-lg transition-all flex items-center justify-center ${
-          pendingOperation === 'add'
-            ? 'bg-[#ff2a85] text-white border border-white/40 shadow-lg shadow-[#ff2a85]/40 scale-[0.98]'
-            : 'glass-accent text-white hover:brightness-110'
-        }`}
+        className={basicOperatorClass}
         aria-label="Sumar"
       >
         +
@@ -177,7 +153,7 @@ export function Keypad({
           key={digit}
           type="button"
           onClick={() => onDigit(digit)}
-          className="h-12 rounded-xl font-medium text-lg glass-button text-white flex items-center justify-center"
+          className="h-12 rounded-xl font-medium text-lg glass-button text-white hover:brightness-110 active:scale-[0.97] flex items-center justify-center"
           aria-label={`Dígito ${digit}`}
         >
           {digit}
@@ -187,7 +163,7 @@ export function Keypad({
       <button
         type="button"
         onClick={onDecimal}
-        className="h-12 rounded-xl font-medium text-lg glass-button text-white flex items-center justify-center"
+        className="h-12 rounded-xl font-medium text-lg glass-button text-white hover:brightness-110 active:scale-[0.97] flex items-center justify-center"
         aria-label="Punto decimal"
       >
         .
@@ -197,7 +173,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onDigit('0')}
-        className="col-span-2 h-12 rounded-xl font-medium text-lg glass-button text-white flex items-center justify-center"
+        className="col-span-2 h-12 rounded-xl font-medium text-lg glass-button text-white hover:brightness-110 active:scale-[0.98] flex items-center justify-center"
         aria-label="Dígito 0"
       >
         0
@@ -206,7 +182,7 @@ export function Keypad({
       <button
         type="button"
         onClick={onCalculate}
-        className="col-span-2 h-12 rounded-xl font-bold text-lg bg-gradient-to-r from-[#ff2a85] to-[#ff8c00] text-white shadow-lg shadow-[#ff2a85]/30 hover:brightness-110 transition-all flex items-center justify-center border border-white/20 active:scale-[0.99]"
+        className="col-span-2 h-12 rounded-xl font-bold text-lg bg-gradient-to-r from-[#ff2a85] to-[#ff8c00] text-white shadow-lg shadow-[#ff2a85]/30 hover:brightness-110 transition-all flex items-center justify-center border border-white/20 active:scale-[0.98]"
         aria-label="Calcular resultado"
       >
         =

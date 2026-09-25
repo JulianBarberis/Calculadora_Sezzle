@@ -1,5 +1,4 @@
 import { useReducer, useState } from 'react';
-import { Sparkles } from 'lucide-react';
 import { calculatorReducer, initialCalculatorState } from './state/calculatorReducer';
 import { useHistory, historyStore } from './state/historyStore';
 import { useNetworkStatus } from './state/networkStore';
@@ -54,6 +53,8 @@ export function App() {
   };
 
   const handleOperation = async (op: OperationType) => {
+    if (isCalculating) return;
+
     // Immediate execution for unary square root
     if (op === 'sqrt') {
       setIsCalculating(true);
@@ -107,7 +108,7 @@ export function App() {
   };
 
   const handleCalculate = async () => {
-    if (!state.pendingOperation || state.previousOperand === null) {
+    if (isCalculating || !state.pendingOperation || state.previousOperand === null) {
       return;
     }
 
@@ -219,17 +220,6 @@ export function App() {
           isClearAll={state.displayValue === '0'}
           pendingOperation={state.pendingOperation}
         />
-
-        {/* Footer info */}
-        <footer className="mt-5 pt-3.5 border-t border-white/10 flex items-center justify-between text-[11px] text-white/50">
-          <span className="flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-[#ff2a85]" aria-hidden="true" />
-            Precisión 34 Decimales
-          </span>
-          <span className="text-white/40">
-            {isCalculating ? 'Calculando...' : 'Zero-useEffect'}
-          </span>
-        </footer>
       </div>
 
       {/* History Drawer Modal */}
