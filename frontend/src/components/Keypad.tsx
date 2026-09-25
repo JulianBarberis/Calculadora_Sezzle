@@ -9,7 +9,7 @@ interface KeypadProps {
   onToggleSign: () => void;
   onBackspace: () => void;
   isClearAll: boolean;
-  pendingOperation: OperationType | null;
+  pendingOperation?: OperationType | null;
 }
 
 export function Keypad({
@@ -21,23 +21,11 @@ export function Keypad({
   onToggleSign,
   onBackspace,
   isClearAll,
-  pendingOperation,
 }: KeypadProps) {
-  const getBasicOperatorClass = (op: OperationType) => {
-    const isActive = pendingOperation === op;
-    if (isActive) {
-      return 'bg-white text-[#921c6b] font-bold border-2 border-white shadow-[0_0_20px_rgba(255,255,255,0.7)] scale-[0.97] hover:bg-white';
-    }
-    return 'glass-accent text-white font-semibold hover:brightness-110 active:scale-[0.97]';
-  };
-
-  const getAdvancedOperatorClass = (op: OperationType) => {
-    const isActive = pendingOperation === op;
-    if (isActive) {
-      return 'bg-white text-[#921c6b] font-bold border-2 border-white shadow-[0_0_20px_rgba(255,255,255,0.7)] scale-[0.97] hover:bg-white';
-    }
-    return 'glass-button text-white/90 hover:text-white active:scale-[0.97]';
-  };
+  const basicOperatorClass =
+    'h-12 rounded-xl text-lg font-semibold glass-accent text-white hover:brightness-110 active:scale-[0.97] transition-all flex items-center justify-center';
+  const advancedOperatorClass =
+    'h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white active:scale-[0.97] transition-all flex items-center justify-center';
 
   return (
     <section aria-label="Teclado numérico y operaciones" className="grid grid-cols-4 gap-2.5">
@@ -62,55 +50,6 @@ export function Keypad({
 
       <button
         type="button"
-        onClick={() => onOperation('percentage')}
-        aria-pressed={pendingOperation === 'percentage'}
-        className={`h-12 rounded-xl font-semibold text-base transition-all flex items-center justify-center ${getAdvancedOperatorClass(
-          'percentage'
-        )}`}
-        aria-label="Porcentaje"
-      >
-        %
-      </button>
-
-      <button
-        type="button"
-        onClick={() => onOperation('divide')}
-        aria-pressed={pendingOperation === 'divide'}
-        className={`h-12 rounded-xl text-lg transition-all flex items-center justify-center ${getBasicOperatorClass(
-          'divide'
-        )}`}
-        aria-label="Dividir"
-      >
-        ÷
-      </button>
-
-      {/* Row 2: Square Root, Power, Backspace, Multiply */}
-      <button
-        type="button"
-        onClick={() => onOperation('sqrt')}
-        aria-pressed={pendingOperation === 'sqrt'}
-        className={`h-12 rounded-xl font-semibold text-base transition-all flex items-center justify-center ${getAdvancedOperatorClass(
-          'sqrt'
-        )}`}
-        aria-label="Raíz cuadrada"
-      >
-        √
-      </button>
-
-      <button
-        type="button"
-        onClick={() => onOperation('power')}
-        aria-pressed={pendingOperation === 'power'}
-        className={`h-12 rounded-xl font-semibold text-base transition-all flex items-center justify-center ${getAdvancedOperatorClass(
-          'power'
-        )}`}
-        aria-label="Potencia"
-      >
-        xʸ
-      </button>
-
-      <button
-        type="button"
         onClick={onBackspace}
         className="h-12 rounded-xl font-semibold text-base glass-button text-white/90 hover:text-white active:scale-[0.97] flex items-center justify-center"
         aria-label="Borrar último dígito"
@@ -120,11 +59,45 @@ export function Keypad({
 
       <button
         type="button"
+        onClick={() => onOperation('divide')}
+        className={basicOperatorClass}
+        aria-label="Dividir"
+      >
+        ÷
+      </button>
+
+      {/* Row 2: Square Root, Power, Backspace, Multiply */}
+      <button
+        type="button"
+        onClick={() => onOperation('sqrt')}
+        className={advancedOperatorClass}
+        aria-label="Raíz cuadrada"
+      >
+        √
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onOperation('power')}
+        className={advancedOperatorClass}
+        aria-label="Potencia"
+      >
+        xʸ
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onOperation('percentage')}
+        className={advancedOperatorClass}
+        aria-label="Porcentaje"
+      >
+        %
+      </button>
+
+      <button
+        type="button"
         onClick={() => onOperation('multiply')}
-        aria-pressed={pendingOperation === 'multiply'}
-        className={`h-12 rounded-xl text-lg transition-all flex items-center justify-center ${getBasicOperatorClass(
-          'multiply'
-        )}`}
+        className={basicOperatorClass}
         aria-label="Multiplicar"
       >
         ×
@@ -146,10 +119,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onOperation('subtract')}
-        aria-pressed={pendingOperation === 'subtract'}
-        className={`h-12 rounded-xl text-lg transition-all flex items-center justify-center ${getBasicOperatorClass(
-          'subtract'
-        )}`}
+        className={basicOperatorClass}
         aria-label="Restar"
       >
         −
@@ -171,10 +141,7 @@ export function Keypad({
       <button
         type="button"
         onClick={() => onOperation('add')}
-        aria-pressed={pendingOperation === 'add'}
-        className={`h-12 rounded-xl text-lg transition-all flex items-center justify-center ${getBasicOperatorClass(
-          'add'
-        )}`}
+        className={basicOperatorClass}
         aria-label="Sumar"
       >
         +

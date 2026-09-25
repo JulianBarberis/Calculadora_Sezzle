@@ -260,8 +260,9 @@ All error responses (4xx and 5xx) must return a JSON response adhering to the ex
 - **Container Geometry & Sizing Harmonization**: Both the network connectivity status indicator and the history action button share identical outer container dimensions (`w-9 h-9`), corner curvature (`rounded-xl`), border styling, and centered flex alignment, eliminating shape and size asymmetry between status indicators and interactive buttons.
 
 
-### 6.4 Active Operator Selection Feedback
-- **Inverted High-Contrast Surface**: When an arithmetic operator (`+`, `−`, `×`, `÷`, or `xʸ`) is selected, the active button transitions from its default accent glass state to a high-contrast inverted active state: luminous pure white background (`bg-white`), deep high-contrast Raspberry Plum glyph (`text-[#921c6b]`, $\ge 8:1$ contrast ratio meeting WCAG AAA), specular white halo glow (`shadow-[0_0_20px_rgba(255,255,255,0.7)]`), and tactile scale feedback (`scale-[0.97]`).
-- **Semantic State**: Active operator buttons must expose `aria-pressed="true"` to assistive technologies, reverting to `aria-pressed="false"` when superseded, cleared, or upon calculation.
+### 6.4 Push Button Interaction & Tactile Feedback
+- **Ephemeral Tactile Feedback**: In accordance with ergonomic UI/UX standards and `/design-taste-frontend`, all keypad buttons—including arithmetic operators (`+`, `−`, `×`, `÷`, and `xʸ`)—function as push buttons with immediate tactile feedback on `:active` (`scale-[0.97]`, brightness adjustments) and instantaneously return to their resting unpressed glass state (`glass-accent` or `glass-button`) upon release. Operator buttons do not remain permanently illuminated or locked in an inverted active state, preventing visual obstruction and ensuring seamless aesthetic continuity.
+- **Dedicated Expression Display**: The current pending arithmetic operation and operands are explicitly and continuously communicated to the user via the dedicated secondary expression line in the display (`Display.tsx`, e.g. `"5 +"` or `"0 ÷"`), providing clear contextual status without freezing keypad button states.
+- **Assistive Technology Semantics**: Keypad buttons operate as standard push buttons with descriptive `aria-label` attributes (`"Sumar"`, `"Restar"`, `"Multiplicar"`, `"Dividir"`, `"Potencia"`), adhering to WAI-ARIA APG standards without erroneous toggle attributes.
 
 

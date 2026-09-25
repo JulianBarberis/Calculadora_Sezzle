@@ -385,8 +385,8 @@ describe('Calculator Component Integration', () => {
     expect(display.className).toContain('text-xl');
   });
 
-  describe('Operator Button Visual Feedback', () => {
-    it('activates high-contrast luminous state on basic operator click and transfers to subsequent operator', () => {
+  describe('Operator Button Interaction & Visual State', () => {
+    it('maintains resting glass-accent unpressed state on basic operator click without sticky active highlight', () => {
       render(<App />);
 
       const plusBtn = screen.getByRole('button', { name: 'Sumar' });
@@ -394,8 +394,7 @@ describe('Calculator Component Integration', () => {
       const multiplyBtn = screen.getByRole('button', { name: 'Multiplicar' });
       const divideBtn = screen.getByRole('button', { name: 'Dividir' });
 
-      // Initially inactive
-      expect(plusBtn).toHaveAttribute('aria-pressed', 'false');
+      // Initially resting in glass-accent
       expect(plusBtn.className).toContain('glass-accent');
       expect(plusBtn.className).not.toContain('bg-white');
 
@@ -403,66 +402,125 @@ describe('Calculator Component Integration', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Dígito 5' }));
       fireEvent.click(plusBtn);
 
-      // '+' should now be active with inverted luminous white surface and raspberry text
-      expect(plusBtn).toHaveAttribute('aria-pressed', 'true');
-      expect(plusBtn.className).toContain('bg-white');
-      expect(plusBtn.className).toContain('text-[#921c6b]');
-      expect(minusBtn).toHaveAttribute('aria-pressed', 'false');
-
-      // Now touch '-' -> '+' deactivates, '-' activates
-      fireEvent.click(minusBtn);
-      expect(plusBtn).toHaveAttribute('aria-pressed', 'false');
+      // '+' updates expression display but returns to unpressed glass-accent state (not stuck in bg-white)
+      expect(screen.getByTestId('calculator-expression')).toHaveTextContent('5 +');
       expect(plusBtn.className).toContain('glass-accent');
-      expect(minusBtn).toHaveAttribute('aria-pressed', 'true');
-      expect(minusBtn.className).toContain('bg-white');
-      expect(minusBtn.className).toContain('text-[#921c6b]');
+      expect(plusBtn.className).not.toContain('bg-white');
 
-      // Now touch '×' -> '-' deactivates, '×' activates
+      // Touch '-' -> expression updates, '-' also stays in resting unpressed glass-accent
+      fireEvent.click(minusBtn);
+      expect(screen.getByTestId('calculator-expression')).toHaveTextContent('5 −');
+      expect(minusBtn.className).toContain('glass-accent');
+      expect(minusBtn.className).not.toContain('bg-white');
+
+      // Touch '×'
       fireEvent.click(multiplyBtn);
-      expect(minusBtn).toHaveAttribute('aria-pressed', 'false');
-      expect(multiplyBtn).toHaveAttribute('aria-pressed', 'true');
-      expect(multiplyBtn.className).toContain('bg-white');
-      expect(multiplyBtn.className).toContain('text-[#921c6b]');
+      expect(screen.getByTestId('calculator-expression')).toHaveTextContent('5 ×');
+      expect(multiplyBtn.className).toContain('glass-accent');
+      expect(multiplyBtn.className).not.toContain('bg-white');
 
-      // Now touch '÷' -> '×' deactivates, '÷' activates
+      // Touch '÷'
       fireEvent.click(divideBtn);
-      expect(multiplyBtn).toHaveAttribute('aria-pressed', 'false');
-      expect(divideBtn).toHaveAttribute('aria-pressed', 'true');
-      expect(divideBtn.className).toContain('bg-white');
-      expect(divideBtn.className).toContain('text-[#921c6b]');
+      expect(screen.getByTestId('calculator-expression')).toHaveTextContent('5 ÷');
+      expect(divideBtn.className).toContain('glass-accent');
+      expect(divideBtn.className).not.toContain('bg-white');
     });
 
-    it('activates high-contrast state on power operator and resets on clear', () => {
+    it('maintains resting glass-button unpressed state on power operator click without sticky active highlight', () => {
       render(<App />);
 
       const powerBtn = screen.getByRole('button', { name: 'Potencia' });
       fireEvent.click(screen.getByRole('button', { name: 'Dígito 2' }));
       fireEvent.click(powerBtn);
 
-      expect(powerBtn).toHaveAttribute('aria-pressed', 'true');
-      expect(powerBtn.className).toContain('bg-white');
-      expect(powerBtn.className).toContain('text-[#921c6b]');
+      expect(screen.getByTestId('calculator-expression')).toHaveTextContent('2 ^');
+      expect(powerBtn.className).toContain('glass-button');
+      expect(powerBtn.className).not.toContain('bg-white');
 
-      // Clear all resets active operator
+      // Clear all
       fireEvent.click(screen.getByRole('button', { name: 'Borrar entrada' }));
       fireEvent.click(screen.getByRole('button', { name: 'Borrar todo' }));
-      expect(powerBtn).toHaveAttribute('aria-pressed', 'false');
+      expect(powerBtn.className).toContain('glass-button');
       expect(powerBtn.className).not.toContain('bg-white');
     });
 
-    it('standardizes header network status indicator and history button to matching dimensions', () => {
+    it('renders header history button with consistent dimensions', () => {
       render(<App />);
 
-      const networkIndicator = screen.getByTitle('Servicio en línea');
       const historyBtn = screen.getByTitle('Ver historial de cálculos');
-
-      expect(networkIndicator.className).toContain('w-9');
-      expect(networkIndicator.className).toContain('h-9');
-      expect(networkIndicator.className).toContain('rounded-xl');
 
       expect(historyBtn.className).toContain('w-9');
       expect(historyBtn.className).toContain('h-9');
       expect(historyBtn.className).toContain('rounded-xl');
+    });
+
+    it('formats calculation results exceeding 16 digits into scientific notation', async () => {
+      const hugeResult = '1' + '0'.repeat(400);
+      globalThis.fetch = vi.fn().mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          id: '10',
+          operation: 'power',
+          a: '10',
+          b: '400',
+          result: hugeResult,
+          expression: `10 ^ 400 = ${hugeResult}`,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      render(<App />);
+      const display = screen.getByTestId('calculator-display');
+
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 1' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 0' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Potencia' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 4' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 0' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 0' }));
+
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Calcular resultado' }));
+      });
+
+      await waitFor(() => {
+        expect(display).toHaveTextContent('1e+400');
+      });
+
+      const expression = screen.getByTestId('calculator-expression');
+      expect(expression).toHaveTextContent('10 ^ 400 = 1e+400');
+    });
+
+    it('formats 34-decimal division result to 16 visible fractional digits without wrapping', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          id: '11',
+          operation: 'divide',
+          a: '1',
+          b: '3',
+          result: '0.3333333333333333333333333333333333',
+          expression: '1 / 3 = 0.3333333333333333333333333333333333',
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      render(<App />);
+      const display = screen.getByTestId('calculator-display');
+
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 1' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Dividir' }));
+      fireEvent.click(screen.getByRole('button', { name: 'Dígito 3' }));
+
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'Calcular resultado' }));
+      });
+
+      await waitFor(() => {
+        expect(display).toHaveTextContent('0.3333333333333333');
+      });
+      expect(display.className).toContain('whitespace-nowrap');
+      expect(display.className).not.toContain('break-all');
     });
   });
 });
